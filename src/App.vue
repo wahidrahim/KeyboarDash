@@ -20,14 +20,20 @@ export default {
 
     computed: {
         htmlWords() {
-            let nextWord = this.input.split(' ').length - 1
-            console.log(nextWord)
+            let userInput = this.input.split(' ')
+            let nextWord = userInput.length - 1
 
             return this.words.split(' ').map((word, i) => {
                 if (i === nextWord) {
                     return `<span class="next">${word}</span>`
                 } else {
-                    return `<span>${word}</span>`
+                    if (userInput[i] === word) {
+                        return `<span class="correct">${word}</span>`
+                    } else if (i >= userInput.length){
+                        return `<span>${word}</span>`
+                    } else {
+                        return `<span class="incorrect">${word}</span>`
+                    }
                 }
             })
         }
@@ -58,7 +64,15 @@ export default {
             @include font-style(24px);
 
             &.next {
+                text-decoration: underline;
+            }
+
+            &.correct {
                 color: green;
+            }
+
+            &.incorrect {
+                color: red;
             }
 
             &:not(:last-child) {

@@ -1,8 +1,16 @@
 <template>
     <div class="container">
         <div id="app">
-            <div class="words" v-html="htmlWords"></div>
-            <textarea type="text" v-model="input"></textarea>
+            <!-- <div class="words" v-html="htmlWords"></div> -->
+            <div class="words">
+                <span v-for="word, i in words"
+                :class="{ next: next === i, incorrect: next === i && wrong, correct: next > i }">{{ word }}</span>
+            </div>
+
+            {{ words }}<br>
+            {{ userWords }}
+
+            <input type="text" v-model="input"></input>
         </div>
     </div>
 </template>
@@ -10,41 +18,32 @@
 <script>
 export default {
     name: 'app',
-
     data () {
         return {
+            text: 'The greater part of human pain is unnecessary. It is self-created as long as the unobserved mind runs your life.',
+            userWords: [],
+            wrong: false,
             input: '',
-            words: 'You must be shapeless, formless, like water. When you pour water in a cup, it becomes the cup. When you pour water in a bottle, it becomes the bottle. When you pour water in a teapot, it becomes the teapot. Water can drip and it can crash. Become like water my friend.'
+            next: 0
         }
     },
-
     computed: {
-        htmlWords() {
-            let words = this.words.split(' ')
-            let userWords = this.input.split(' ')
-            let nextWord = userWords.length - 1
+        words() { return this.text.split(' ') }
+    },
+    watch: {
+        input: function(input) {
+            if (this.next < this.words.length) {
+                this.wrong = !this.words[this.next].startsWith(input)
 
-            // all previous words can be either 'correct' or 'incorrect'
-            // the current word can be 'next' or 'incorrect'
-            //     the current word is only 'incorrect' when
+                const last = this.next === this.words.length - 1
+                const word = this.words[this.next]
 
-            return words.map((word, i) => {
-                if (i < nextWord) {
-                    if (userWords[i] === word) {
-                        return `<span class="correct">${word}</span>`
-                    } else {
-                        return `<span class="incorrect">${word}</span>`
-                    }
-                } else if (i === nextWord) {
-                    if (userWords[i] === '' || words[i].startsWith(userWords[i])) {
-                        return `<span class="next">${word}</span>`
-                    } else {
-                        return `<span class="incorrect">${word}</span>`
-                    }
-                } else {
-                    return `<span>${word}</span>`
+                if (input === `${word} ` || last && input === word){
+                    this.userWords.push(word.trim())
+                    this.input = ''
+                    this.next++
                 }
-            }).join(' ')
+            }
         }
     }
 }
@@ -90,13 +89,12 @@ export default {
         }
     }
 
-    textarea {
+    input {
         width: 100%;
         box-sizing: border-box;
         padding: 5px 15px;
         margin-top: 15px;
         @include font-style(24px);
-
     }
 }
 </style>

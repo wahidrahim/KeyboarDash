@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <div id="app">
-            <div class="words" v-html="htmlWords.join(' ')"></div>
-            <input type="text" v-model="input">
+            <div class="words" v-html="htmlWords"></div>
+            <textarea type="text" v-model="input"></textarea>
         </div>
     </div>
 </template>
@@ -14,28 +14,37 @@ export default {
     data () {
         return {
             input: '',
-            words: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni sit repellendus deleniti facilis numquam illo aliquam accusamus sint assumenda repudiandae incidunt exercitationem qui doloribus vitae fuga, esse dolore iure. Rerum! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum odio ipsa in velit officia quasi nulla placeat error! Illum atque excepturi, consequatur dolor eos consectetur est quam laborum iure et.'
+            words: 'You must be shapeless, formless, like water. When you pour water in a cup, it becomes the cup. When you pour water in a bottle, it becomes the bottle. When you pour water in a teapot, it becomes the teapot. Water can drip and it can crash. Become like water my friend.'
         }
     },
 
     computed: {
         htmlWords() {
-            let userInput = this.input.split(' ')
-            let nextWord = userInput.length - 1
+            let words = this.words.split(' ')
+            let userWords = this.input.split(' ')
+            let nextWord = userWords.length - 1
 
-            return this.words.split(' ').map((word, i) => {
-                if (i === nextWord) {
-                    return `<span class="next">${word}</span>`
-                } else {
-                    if (userInput[i] === word) {
+            // all previous words can be either 'correct' or 'incorrect'
+            // the current word can be 'next' or 'incorrect'
+            //     the current word is only 'incorrect' when
+
+            return words.map((word, i) => {
+                if (i < nextWord) {
+                    if (userWords[i] === word) {
                         return `<span class="correct">${word}</span>`
-                    } else if (i >= userInput.length){
-                        return `<span>${word}</span>`
                     } else {
                         return `<span class="incorrect">${word}</span>`
                     }
+                } else if (i === nextWord) {
+                    if (userWords[i] === '' || words[i].startsWith(userWords[i])) {
+                        return `<span class="next">${word}</span>`
+                    } else {
+                        return `<span class="incorrect">${word}</span>`
+                    }
+                } else {
+                    return `<span>${word}</span>`
                 }
-            })
+            }).join(' ')
         }
     }
 }
@@ -81,7 +90,7 @@ export default {
         }
     }
 
-    input {
+    textarea {
         width: 100%;
         box-sizing: border-box;
         padding: 5px 15px;

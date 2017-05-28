@@ -1,20 +1,17 @@
 <template>
     <div class="container">
         <div id="app">
-            <!-- <div class="words" v-html="htmlWords"></div> -->
             <div class="words">
-                <span v-for="word, i in words"
-                :class="{ next: next === i, incorrect: next === i && wrong, correct: next > i }">{{ word }}</span>
+                <span v-for="word, i in words" :class="cssClasses(i)">
+                    {{ word }}
+                </span>
             </div>
 
-            {{ seconds }}
-
+            seconds: {{ seconds }}
             <br>
-            {{ words }}
-            <br>
-            {{ userWords }}
+            speed: {{ speed }} wpm
 
-            <input type="text" v-model="input"></input>
+            <input type="text" v-model="input" autofocus></input>
         </div>
     </div>
 </template>
@@ -24,24 +21,28 @@ export default {
     name: 'app',
     data () {
         return {
-            text: 'hello world',
+            text: `If you resist change, you resist life.`,
             userWords: [],
             input: '',
             next: 0,
             wrong: false,
             seconds: 0,
-            startTime: false,
             timer: null
         }
     },
     computed: {
-        words() { return this.text.split(' ') }
+        words() { return this.text.split(' ') },
+        speed() {
+            let mins = this.seconds / 60
+
+            return mins ? (this.next / mins).toFixed(2) : 0
+        },
+
     },
     watch: {
         input: function(input) {
             if (this.next < this.words.length) {
-                if (!this.startTime) {
-                    this.startTime = true
+                if (!this.timer) {
                     this.timer = setInterval(() => this.seconds++, 1000)
                 }
 
@@ -59,12 +60,22 @@ export default {
                 clearInterval(this.timer)
             }
         }
+    },
+    methods: {
+        cssClasses(i) {
+            return {
+                next: this.next === i,
+                incorrect: this.next === i && this.wrong,
+                correct: this.next > i
+            }
+        }
     }
 }
 </script>
 
 <style lang="scss">
 @mixin font-style($unit) {
+    font-family: serif;
     font-size: $unit;
     word-spacing: $unit / 2;
     line-height: $unit * 1.5;

@@ -1,18 +1,19 @@
 <template lang="html">
     <div class="speed">
-        {{ speed }} WPM
+        {{ speed.toFixed(0) }} WPM
     </div>
 </template>
 
 <script>
 export default {
-    props: ['speed']
+    props: {
+        speed: { type: Number }
+    }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .speed {
-    color: #F9E784;
     font-size: 24px;
     font-family: sans-serif;
     text-align: center;

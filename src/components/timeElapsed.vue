@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="time-elapsed">
-        {{ time | timeElapsed }}
+        {{ seconds | timeElapsed }}
     </div>
 </template>
 
@@ -8,7 +8,9 @@
 import moment from 'moment'
 
 export default {
-    props: ['time'],
+    props: {
+        seconds: { type: Number }
+    },
     filters: {
         timeElapsed: function(sec) {
             return moment(`2016-06-12 00:00:00`).add(sec, 'seconds').format('HH:mm:ss')
@@ -19,7 +21,6 @@ export default {
 
 <style lang="scss">
 .time-elapsed {
-    color: #07A6EF;
     text-align: center;
     font-family: sans-serif;
 }

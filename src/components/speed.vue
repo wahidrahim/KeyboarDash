@@ -16,6 +16,6 @@ export default {
     font-size: 24px;
     font-family: sans-serif;
     text-align: center;
-    margin: 10px;
+    margin: 20px 0 5px;
 }
 </style>

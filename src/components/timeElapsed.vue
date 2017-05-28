@@ -19,7 +19,7 @@ export default {
 
 <style lang="scss">
 .time-elapsed {
-    color: #73EEDC;
+    color: #07A6EF;
     text-align: center;
     font-family: sans-serif;
 }

@@ -35,6 +35,21 @@ export default {
             timer: null
         }
     },
+    created() {
+        const url = 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json'
+
+        this.$http.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:8080'
+        this.$http.headers.common['Access-Control-Request-Method'] = '*'
+
+        this.$http.get(url, (res) => {
+            console.log(res)
+        }, {
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:8080',
+                'Access-Control-Request-Method': '*'
+            }
+        })
+    },
     computed: {
         words() { return this.text.split(' ') },
         speed() {
@@ -111,7 +126,8 @@ body {
             }
 
             &.correct {
-                color: #07A6EF;
+                // color: #00FFC5;
+                color: #00BA90;
             }
 
             &.incorrect {

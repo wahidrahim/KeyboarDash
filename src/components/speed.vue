@@ -10,5 +10,12 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+.speed {
+    color: #F9E784;
+    font-size: 24px;
+    font-family: sans-serif;
+    text-align: center;
+    margin: 10px;
+}
 </style>

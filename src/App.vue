@@ -8,8 +8,8 @@
             </div>
             <input type="text" v-model="input" autofocus></input>
 
-            <time-elapsed :time="seconds"></time-elapsed>
             <speed :speed="speed"></speed>
+            <time-elapsed :time="seconds"></time-elapsed>
         </div>
     </div>
 </template>
@@ -27,10 +27,10 @@ export default {
     data () {
         return {
             text: 'We know from science that nothing in the universe exists as an isolated or independent entity.',
-            userWords: [],
             input: '',
-            next: 0,
+            userWords: [],
             wrong: false,
+            next: 0,
             seconds: 0,
             timer: null
         }
@@ -40,7 +40,7 @@ export default {
         speed() {
             let mins = this.seconds / 60
 
-            return mins ? (this.next / mins).toFixed(2) : 0
+            return mins ? (this.next / mins).toFixed(1) : 0
         }
     },
     watch: {
@@ -48,6 +48,7 @@ export default {
             if (!this.timer) {
                 this.timer = setInterval(() => this.seconds++, 1000)
             }
+
             if (this.next < this.words.length) {
                 this.wrong = !this.words[this.next].startsWith(input)
 
@@ -84,31 +85,37 @@ export default {
     line-height: $unit * 1.5;
 }
 
+body {
+    background: #2A2D34;
+}
+
 .container {
-    max-width: 1200px;
+    max-width: 960px;
     margin: 0 auto;
 }
 
 #app {
     .words {
-        border: 1px solid #DCDCDC;
-        padding: 5px 15px;
+        border: 1px solid black;
+        border-radius: 3px;
+        padding: 10px 20px;
         display: flex;
         flex-wrap: wrap;
+        background: #FCFCFC;
 
         span {
-            @include font-style(24px);
+            @include font-style(32px);
 
             &.next {
-                text-decoration: underline;
+                border-bottom: 1px solid black;
             }
 
             &.correct {
-                color: green;
+                color: #07A6EF;
             }
 
             &.incorrect {
-                color: red;
+                color: #ED254E;
             }
 
             &:not(:last-child) {
@@ -119,10 +126,17 @@ export default {
 
     input {
         width: 100%;
+        border: 1px solid black;
+        border-radius: 3px;
         box-sizing: border-box;
         padding: 5px 15px;
         margin-top: 15px;
-        @include font-style(24px);
+        outline: none;
+        @include font-style(32px);
+
+        &:focus {
+            border: 1px solid #2AAEFF;
+        }
     }
 }
 </style>

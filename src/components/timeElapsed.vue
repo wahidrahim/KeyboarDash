@@ -17,5 +17,10 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+.time-elapsed {
+    color: #73EEDC;
+    text-align: center;
+    font-family: sans-serif;
+}
 </style>

@@ -7,7 +7,11 @@
                 :class="{ next: next === i, incorrect: next === i && wrong, correct: next > i }">{{ word }}</span>
             </div>
 
-            {{ words }}<br>
+            {{ seconds }}
+
+            <br>
+            {{ words }}
+            <br>
             {{ userWords }}
 
             <input type="text" v-model="input"></input>
@@ -20,11 +24,14 @@ export default {
     name: 'app',
     data () {
         return {
-            text: 'The greater part of human pain is unnecessary. It is self-created as long as the unobserved mind runs your life.',
+            text: 'hello world',
             userWords: [],
-            wrong: false,
             input: '',
-            next: 0
+            next: 0,
+            wrong: false,
+            seconds: 0,
+            startTime: false,
+            timer: null
         }
     },
     computed: {
@@ -33,6 +40,11 @@ export default {
     watch: {
         input: function(input) {
             if (this.next < this.words.length) {
+                if (!this.startTime) {
+                    this.startTime = true
+                    this.timer = setInterval(() => this.seconds++, 1000)
+                }
+
                 this.wrong = !this.words[this.next].startsWith(input)
 
                 const last = this.next === this.words.length - 1
@@ -43,6 +55,8 @@ export default {
                     this.input = ''
                     this.next++
                 }
+            } else {
+                clearInterval(this.timer)
             }
         }
     }

@@ -1,9 +1,12 @@
 <template lang="html">
   <div class="word-list">
-    <div class="words">
-      <span v-for="word, i in words" :class="cssClasses(i)">
-        {{ word }}
-      </span>
+    <div class="text-container">
+      <div class="words">
+        <span v-for="word, i in words" :class="['word', cssClasses(i)]">
+          {{ word }}
+        </span>
+      </div>
+      <div class="source">{{ source ? `— ${source}` : '' }}</div>
     </div>
     <input type="text" v-model="input" autofocus></input>
   </div>
@@ -16,6 +19,9 @@ export default {
   props: {
     text: {
       default: 'If you want to become life sensitive, a simple process that you do is this: make whatever you think and whatever you feel less important. Try and see for one day. Suddenly you will feel the breeze, the rain, the flowers and the people, everything in a completely different way. Suddenly the life in you becomes much more active and alive for your experience.',
+      type: String
+    },
+    source: {
       type: String
     }
   },
@@ -82,29 +88,47 @@ export default {
 }
 
 .word-list {
-  .words {
-    border: 1px solid black;
-    border-radius: 3px;
-    padding: 10px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    background: white;;
+  &.loading {
+    position: relative;
 
-    span {
+    &:before {
+      content: 'loading...';
+      position: absolute;
+      top: 3px;
+      left: 5px;
+    }
+  }
+
+  .text-container {
+    .words {
+      border: 1px solid black;
+      border-radius: 3px;
+      padding: 10px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      background: white;;
       @include font-style(32px);
 
-      &.next {
-        box-shadow: 0px 1px 0px 0px black;
+      .word {
+        &.next {
+          box-shadow: 0px 1px 0px 0px black;
+        }
+        &.correct {
+          color: green;
+        }
+        &.incorrect {
+          color: red;
+        }
+        &:not(:last-child) {
+          margin-right: 12px;
+        }
       }
-      &.correct {
-        color: green;
-      }
-      &.incorrect {
-        color: red;
-      }
-      &:not(:last-child) {
-        margin-right: 12px;
-      }
+    }
+
+    .source {
+      text-align: right;
+      font-style: italic;
+      min-height: 15px;
     }
   }
   input {
@@ -114,7 +138,7 @@ export default {
     border-radius: 3px;
     box-sizing: border-box;
     padding: 5px 15px;
-    margin-top: 15px;
+    // margin-top: 15px;
     outline: none;
 
     &:focus {

@@ -27,8 +27,10 @@ export default {
         background = 'green'
       } else if (this.speed >= 80 && this.speed < 100) {
         background = 'orange'
-      } else if (this.speed >= 100) {
+      } else if (this.speed >= 100 && this.speed < 150) {
         background = 'orangered'
+      } else if (this.speed >= 150) {
+        background = 'red'
       }
 
       return {

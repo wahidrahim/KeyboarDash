@@ -1,10 +1,12 @@
 <template>
   <div class="container">
     <div id="app">
-      <word-list :text="text"></word-list>
+      <word-list :text="text" :source="source" :class="{loading}"></word-list>
       <race :progress="progress" :speed="speed"></race>
-      <speed :speed="speed"></speed>
-      <time-elapsed :seconds="seconds"></time-elapsed>
+      <div class="stats">
+        <speed :speed="speed"></speed>
+        <time-elapsed :seconds="seconds"></time-elapsed>
+      </div>
     </div>
   </div>
 </template>
@@ -27,11 +29,13 @@ export default {
   },
   data() {
     return {
-      text: undefined,
+      text: '',
+      source: '',
       timer: null,
       seconds: 0,
       correctWords: 0,
-      progress: 0
+      progress: 0,
+      loading: true
     }
   },
   computed: {
@@ -42,6 +46,20 @@ export default {
     }
   },
   created() {
+    let url = 'https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
+
+    this.$http.get(url).then((res) => {
+      let text = res.body.quoteText.trim()
+      let source = res.body.quoteAuthor
+
+      this.loading = false
+      this.text = text
+      this.source = source
+    }, (err) => {
+      this.text = undefined
+      this.loading = false
+    })
+
     Bus.$on('started', () => {
       this.timer = setInterval(() => {
         this.seconds++
@@ -64,5 +82,14 @@ export default {
 .container {
   max-width: 720px;
   margin: 0 auto;
+}
+
+#app {
+  .stats {
+    position: absolute;
+    top: 3px;
+    left: 8px;
+    font-family: sans-serif;
+  }
 }
 </style>

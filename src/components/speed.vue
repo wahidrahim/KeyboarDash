@@ -15,8 +15,5 @@ export default {
 <style lang="scss" scoped>
 .speed {
   font-size: 24px;
-  font-family: sans-serif;
-  text-align: center;
-  margin: 20px 0 5px;
 }
 </style>

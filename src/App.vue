@@ -6,22 +6,27 @@
                     {{ word }}
                 </span>
             </div>
-
-            seconds: {{ seconds }}
-            <br>
-            speed: {{ speed }} wpm
-
             <input type="text" v-model="input" autofocus></input>
+
+            <time-elapsed :time="seconds"></time-elapsed>
+            <speed :speed="speed"></speed>
         </div>
     </div>
 </template>
 
 <script>
+import TimeElapsed from './components/timeElapsed.vue'
+import Speed from './components/speed.vue'
+
 export default {
     name: 'app',
+    components: {
+        TimeElapsed,
+        Speed
+    },
     data () {
         return {
-            text: `If you resist change, you resist life.`,
+            text: 'We know from science that nothing in the universe exists as an isolated or independent entity.',
             userWords: [],
             input: '',
             next: 0,
@@ -36,16 +41,14 @@ export default {
             let mins = this.seconds / 60
 
             return mins ? (this.next / mins).toFixed(2) : 0
-        },
-
+        }
     },
     watch: {
         input: function(input) {
+            if (!this.timer) {
+                this.timer = setInterval(() => this.seconds++, 1000)
+            }
             if (this.next < this.words.length) {
-                if (!this.timer) {
-                    this.timer = setInterval(() => this.seconds++, 1000)
-                }
-
                 this.wrong = !this.words[this.next].startsWith(input)
 
                 const last = this.next === this.words.length - 1

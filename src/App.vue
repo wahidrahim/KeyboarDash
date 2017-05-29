@@ -49,6 +49,12 @@ export default {
     let url = 'https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
 
     this.$http.get(url).then((res) => {
+      if (!res.body) {
+        this.text = undefined
+        this.source = undefined
+        this.loading = false
+        return
+      }
       let text = res.body.quoteText.trim()
       let source = res.body.quoteAuthor
 

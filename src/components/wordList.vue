@@ -22,6 +22,7 @@ export default {
       type: String
     },
     source: {
+      default: 'Sadhguru Jaggi Vasudev',
       type: String
     }
   },

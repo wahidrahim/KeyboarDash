@@ -43,15 +43,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$height: 25px;
+
 .race {
   .progress-bar {
-    height: 25px;
+    height: $height;
     box-sizing: border-box;
     margin-top: 15px;
 
     .progress {
       height: 100%;
       background: green;
+      border-radius: $height / 2;
     }
   }
 }

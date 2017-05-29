@@ -21,17 +21,11 @@ export default {
   methods: {
     raceState() {
       const width = `${this.progress}%`
-      let background = 'lightgreen'
+      const ratio = this.speed / 200
 
-      if (this.speed >= 50 && this.speed < 80) {
-        background = 'green'
-      } else if (this.speed >= 80 && this.speed < 100) {
-        background = 'orange'
-      } else if (this.speed >= 100 && this.speed < 150) {
-        background = 'orangered'
-      } else if (this.speed >= 150) {
-        background = 'red'
-      }
+      let red = (ratio * 255).toFixed(0)
+      let blue = ((1 - ratio) * 255).toFixed(0)
+      let background = `rgb(${red}, 0, ${blue})`
 
       return {
         width,
@@ -53,8 +47,12 @@ $height: 25px;
 
     .progress {
       height: 100%;
-      background: green;
-      border-radius: $height / 2;
+    //   background: green;
+    //   border-radius: $height / 2;
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+      border-top-right-radius: $height / 2;
+      border-bottom-right-radius: $height / 2;
     }
   }
 }

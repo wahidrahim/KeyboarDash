@@ -22,15 +22,11 @@ export default {
     raceState() {
       const width = `${this.progress}%`
       const ratio = this.speed / 200
+      const red = (ratio * 255).toFixed(0)
+      const blue = ((1 - ratio) * 255).toFixed(0)
+      const background = `rgb(${red}, 0, ${blue})`
 
-      let red = (ratio * 255).toFixed(0)
-      let blue = ((1 - ratio) * 255).toFixed(0)
-      let background = `rgb(${red}, 0, ${blue})`
-
-      return {
-        width,
-        background
-      }
+      return { width, background }
     }
   }
 }
@@ -47,8 +43,6 @@ $height: 25px;
 
     .progress {
       height: 100%;
-    //   background: green;
-    //   border-radius: $height / 2;
       border-top-left-radius: 3px;
       border-bottom-left-radius: 3px;
       border-top-right-radius: $height / 2;

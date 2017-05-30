@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <div id="app">
-      <word-list :text="text" :source="source" :class="{loading}"></word-list>
+      <!-- <word-list :text="text" :source="source" :class="{loading}"></word-list> -->
+      <word-list></word-list>
       <race :progress="progress" :speed="speed"></race>
       <div class="stats">
         <speed :speed="speed"></speed>
@@ -33,16 +34,18 @@ export default {
       source: '',
       timer: null,
       seconds: 0,
-      correctWords: 0,
+      completedChars: 0,
       progress: 0,
       loading: true
     }
   },
   computed: {
     speed() {
-      let mins = this.seconds / 60
+      const mins = this.seconds / 60
+      const standardWords = this.completedChars / 5
 
-      return mins ? this.correctWords / mins : 0
+      console.log(this.completedChars)
+      return mins ? standardWords / mins : 0
     }
   },
   created() {
@@ -72,9 +75,9 @@ export default {
       }, 1000)
     })
 
-    Bus.$on('correctWord', (data) => {
-      this.correctWords = data.corrects,
-      this.progress = data.progress * 100
+    Bus.$on('progress', (data) => {
+      this.completedChars = data.completedChars,
+      this.progress = data.totalCompleted
     })
 
     Bus.$on('finished', () => {

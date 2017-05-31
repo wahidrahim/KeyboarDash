@@ -5,7 +5,6 @@
       <race :progress="percentageCompleted" :speed="speed"></race>
       <div class="stats">
         <speed :speed="speed"></speed>
-        <speed :speed="speed2"></speed>
         <time-elapsed :timer="timer"></time-elapsed>
       </div>
     </div>
@@ -37,7 +36,6 @@ export default {
       completedText: '',
       loading: false,
       timer: {
-        seconds: 0,
         milliseconds: 0,
         init: null,
         clock: null,
@@ -45,14 +43,13 @@ export default {
           this.init = moment()
           this.clock = setInterval(() => {
             this.milliseconds = moment().diff(this.init, 'milliseconds')
-            this.seconds = moment().diff(this.init, 'seconds')
+            // this.seconds = moment().diff(this.init, 'seconds')
             // this.seconds = Math.floor(this.milliseconds / 1000).toFixed(0)
             // console.log(moment().diff(this.init, 'milliseconds'))
           }, 1)
         },
         stop() {
           console.log('ms', this.milliseconds)
-          console.log('s', this.seconds)
           clearInterval(this.clock)
         }
       },
@@ -64,13 +61,7 @@ export default {
       const mins = this.timer.milliseconds / 60000
       const standardWords = this.completedText.length / 5
 
-      return mins ? (standardWords / mins).toFixed(2) : 0
-    },
-    speed2() {
-      const mins = this.timer.seconds / 60
-      const standardWords = this.completedText.length / 5
-
-      return mins ? (standardWords / mins).toFixed(2) : 0
+      return mins ? (standardWords / mins).toFixed(3) : 0
     },
     percentageCompleted() {
       return this.completedText.length / this.text.length * 100
@@ -119,6 +110,10 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+  margin: 15px;
+}
+
 .container {
   max-width: 720px;
   margin: 0 auto;
@@ -126,9 +121,6 @@ export default {
 
 #app {
   .stats {
-    position: absolute;
-    top: 3px;
-    left: 8px;
     font-family: sans-serif;
   }
 }

@@ -1,9 +1,8 @@
 <template>
   <div class="container">
     <div id="app">
-      <!-- <word-list :text="text" :source="source" :class="{loading}"></word-list> -->
-      <word-list></word-list>
-      <race :progress="progress" :speed="speed"></race>
+      <word-list :text="text" :source="source" :class="{loading}"></word-list>
+      <race :progress="percentageCompleted" :speed="speed"></race>
       <div class="stats">
         <speed :speed="speed"></speed>
         <time-elapsed :seconds="seconds"></time-elapsed>
@@ -30,59 +29,65 @@ export default {
   },
   data() {
     return {
-      text: '',
-      source: '',
-      timer: null,
+      text: 'If you want to become life sensitive, a simple process that you do is this: make whatever you think and whatever you feel less important. Try and see for one day. Suddenly you will feel the breeze, the rain, the flowers and the people, everything in a completely different way. Suddenly the life in you becomes much more active and alive for your experience.',
+      source: 'Sadhguru Jaggi Vasudev',
+      completedText: '',
       seconds: 0,
-      completedChars: 0,
-      progress: 0,
-      loading: true
+      timer: null,
+      loading: false
     }
   },
   computed: {
     speed() {
       const mins = this.seconds / 60
-      const standardWords = this.completedChars / 5
+      const standardWords = this.completedText.length / 5
 
-      console.log(this.completedChars)
       return mins ? standardWords / mins : 0
+    },
+    percentageCompleted() {
+      return this.completedText.length / this.text.length * 100
     }
   },
   created() {
-    let url = 'https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
-
-    this.$http.get(url).then((res) => {
-      if (!res.body) {
-        this.text = undefined
-        this.source = undefined
-        this.loading = false
-        return
-      }
-      let text = res.body.quoteText.trim()
-      let source = res.body.quoteAuthor
-
-      this.loading = false
-      this.text = text
-      this.source = source
-    }, (err) => {
-      this.text = undefined
-      this.loading = false
-    })
-
     Bus.$on('started', () => {
       this.timer = setInterval(() => {
         this.seconds++
       }, 1000)
     })
 
-    Bus.$on('progress', (data) => {
-      this.completedChars = data.completedChars,
-      this.progress = data.totalCompleted
+    Bus.$on('updateProgress', (completedText) => {
+      this.completedText = completedText
     })
 
     Bus.$on('finished', () => {
       clearInterval(this.timer)
     })
+
+    this.getRandomText()
+  },
+  methods: {
+    getRandomText() {
+      const url = 'https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
+
+      this.loading = true
+
+      this.$http.get(url).then((res) => {
+        if (!res.body) {
+          this.loading = false
+          return
+        } else {
+          const text = res.body.quoteText.trim()
+          const source = res.body.quoteAuthor
+
+          this.text = text
+          this.source = source
+          this.loading = false
+        }
+      }, (err) => {
+        this.loading = false
+      })
+
+    }
   }
 }
 </script>

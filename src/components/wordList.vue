@@ -2,11 +2,11 @@
   <div class="word-list">
     <div class="text-container">
       <div class="words">
-        <span v-for="word, i in wordArray" :class="['word', cssClasses(i)]">
+        <span v-for="word, i in wordsArray" :class="['word', cssClasses(i)]">
           {{ word }}
         </span>
       </div>
-      <div class="source">{{ this.text.source ? `— ${this.text.source}` : '' }}</div>
+      <div class="source">{{ this.source ? `— ${this.source}` : '' }}</div>
     </div>
     <input type="text" v-model="input" autofocus></input>
   </div>
@@ -17,15 +17,8 @@ import { Bus } from '../main.js'
 
 export default {
   props: {
-    // TODO combine source and text into one object
-    text: {
-      default: () => {
-        return {
-          words: 'If you want to become life sensitive, a simple process that you do is this: make whatever you think and whatever you feel less important. Try and see for one day. Suddenly you will feel the breeze, the rain, the flowers and the people, everything in a completely different way. Suddenly the life in you becomes much more active and alive for your experience.',
-          source: 'Sadhguru Jaggi Vasudev'
-        }
-      }
-    }
+    text: { type: String },
+    source: { type: String }
   },
   data () {
     return {
@@ -36,53 +29,48 @@ export default {
     }
   },
   computed: {
-    wordArray() {
-      return this.text.words.split(' ')
-    },
-    totalWords() {
-      return this.wordArray.length
-    },
-    completedChars() {
-      return this.userText.length
-    },
-    totalCompleted() {
-      return this.userText.length / this.text.words.length
+    wordsArray() {
+      return this.text.split(' ')
     },
     wrong() {
-      return this.input.length ? !this.wordArray[this.next].startsWith(this.input) : false
+      return this.input.length ?
+      !this.wordsArray[this.next].startsWith(this.input)
+      : false
     }
   },
   watch: {
-    input: function(value) {
-      if (!this.playing) { this.playing = true }
+    input(value) {
+      const totalWords = this.wordsArray.length
 
-      // not finished typing all the words
-      if (this.next < this.totalWords) {
-        const last = this.next === this.totalWords - 1
-        const word = this.wordArray[this.next]
+      // used for starting timer
+      if (!this.playing) {
+        this.playing = true
+      }
+
+      // user has not finished typing all the words
+      if (this.next < totalWords) {
+        const last = this.next === totalWords - 1
+        const word = this.wordsArray[this.next]
 
         // completed typing a word
         if (value === `${word} ` || last && value === word) {
           this.userText += value
           this.input = ''
           this.next++
-
-          Bus.$emit('progress', {
-            completedChars: this.completedChars,
-            totalCompleted: this.totalCompleted
-          })
-
         }
       } else {
         this.playing = false
       }
     },
-    playing: (is) => {
+    playing(is) {
       if (is) {
         Bus.$emit('started')
       } else {
         Bus.$emit('finished')
       }
+    },
+    userText(text) {
+      Bus.$emit('updateProgress', text)
     }
   },
   methods: {

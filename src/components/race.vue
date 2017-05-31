@@ -15,7 +15,7 @@ export default {
     },
     speed: {
       default: 0,
-      type: Number
+      // type: Number
     }
   },
   methods: {

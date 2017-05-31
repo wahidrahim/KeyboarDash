@@ -5,7 +5,8 @@
       <race :progress="percentageCompleted" :speed="speed"></race>
       <div class="stats">
         <speed :speed="speed"></speed>
-        <time-elapsed :seconds="timer.seconds"></time-elapsed>
+        <speed :speed="speed2"></speed>
+        <time-elapsed :timer="timer"></time-elapsed>
       </div>
     </div>
   </div>
@@ -18,6 +19,8 @@ import TimeElapsed from './components/timeElapsed.vue'
 import Speed from './components/speed.vue'
 
 import { Bus } from './main.js'
+
+import moment from 'moment'
 
 export default {
   name: 'app',
@@ -35,14 +38,21 @@ export default {
       loading: false,
       timer: {
         seconds: 0,
+        milliseconds: 0,
+        init: null,
         clock: null,
         start() {
-          console.log(this)
+          this.init = moment()
           this.clock = setInterval(() => {
-            this.seconds++
-          }, 1000)
+            this.milliseconds = moment().diff(this.init, 'milliseconds')
+            this.seconds = moment().diff(this.init, 'seconds')
+            // this.seconds = Math.floor(this.milliseconds / 1000).toFixed(0)
+            // console.log(moment().diff(this.init, 'milliseconds'))
+          }, 1)
         },
         stop() {
+          console.log('ms', this.milliseconds)
+          console.log('s', this.seconds)
           clearInterval(this.clock)
         }
       },
@@ -50,10 +60,17 @@ export default {
   },
   computed: {
     speed() {
+      // const mins = this.timer.seconds / 60
+      const mins = this.timer.milliseconds / 60000
+      const standardWords = this.completedText.length / 5
+
+      return mins ? (standardWords / mins).toFixed(2) : 0
+    },
+    speed2() {
       const mins = this.timer.seconds / 60
       const standardWords = this.completedText.length / 5
 
-      return mins ? standardWords / mins : 0
+      return mins ? (standardWords / mins).toFixed(2) : 0
     },
     percentageCompleted() {
       return this.completedText.length / this.text.length * 100

@@ -1,14 +1,12 @@
 <template lang="html">
   <div class="speed">
-    {{ speed.toFixed(0) }} WPM
+    {{ speed }} WPM
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    speed: { type: Number }
-  }
+  props: ['speed']
 }
 </script>
 

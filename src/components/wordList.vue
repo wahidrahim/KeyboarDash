@@ -97,6 +97,14 @@ export default {
   &.loading {
     position: relative;
 
+    .word, .source {
+      display: none;
+    }
+
+    input {
+      margin-top: 15px;
+    }
+
     &:before {
       content: 'loading...';
       position: absolute;
@@ -144,7 +152,6 @@ export default {
     border-radius: 3px;
     box-sizing: border-box;
     padding: 5px 15px;
-    // margin-top: 15px;
     outline: none;
 
     &:focus {

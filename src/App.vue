@@ -5,7 +5,7 @@
       <race :progress="percentageCompleted" :speed="speed"></race>
       <div class="stats">
         <speed :speed="speed"></speed>
-        <time-elapsed :seconds="seconds"></time-elapsed>
+        <time-elapsed :seconds="timer.seconds"></time-elapsed>
       </div>
     </div>
   </div>
@@ -32,14 +32,25 @@ export default {
       text: 'If you want to become life sensitive, a simple process that you do is this: make whatever you think and whatever you feel less important. Try and see for one day. Suddenly you will feel the breeze, the rain, the flowers and the people, everything in a completely different way. Suddenly the life in you becomes much more active and alive for your experience.',
       source: 'Sadhguru Jaggi Vasudev',
       completedText: '',
-      seconds: 0,
-      timer: null,
-      loading: false
+      loading: false,
+      timer: {
+        seconds: 0,
+        clock: null,
+        start() {
+          console.log(this)
+          this.clock = setInterval(() => {
+            this.seconds++
+          }, 1000)
+        },
+        stop() {
+          clearInterval(this.clock)
+        }
+      },
     }
   },
   computed: {
     speed() {
-      const mins = this.seconds / 60
+      const mins = this.timer.seconds / 60
       const standardWords = this.completedText.length / 5
 
       return mins ? standardWords / mins : 0
@@ -49,18 +60,16 @@ export default {
     }
   },
   created() {
-    Bus.$on('started', () => {
-      this.timer = setInterval(() => {
-        this.seconds++
-      }, 1000)
-    })
-
     Bus.$on('updateProgress', (completedText) => {
       this.completedText = completedText
     })
 
+    Bus.$on('started', () => {
+      this.timer.start()
+    })
+
     Bus.$on('finished', () => {
-      clearInterval(this.timer)
+      this.timer.stop()
     })
 
     this.getRandomText()

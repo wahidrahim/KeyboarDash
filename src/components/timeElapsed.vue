@@ -1,8 +1,6 @@
 <template lang="html">
   <div class="time-elapsed">
-    <!-- {{ seconds }}:{{ milliseconds }} -->
-    <!-- {{ seconds | timeElapsed }} -->
-    {{ time | timeElapsed }}
+    {{ time | formatTime }}
   </div>
 </template>
 
@@ -12,12 +10,11 @@ import moment from 'moment'
 export default {
   computed: {
     time() {
-      // return this.$store.state.timer.timeElapsed
       return this.$store.getters.timeElapsed
     }
   },
   filters: {
-    timeElapsed: function(ms) {
+    formatTime: function(ms) {
         const zeroTime = moment('2016-06-12 00:00:00')
 
         return zeroTime.add(ms, 'milliseconds').format('mm:ss:SSS')

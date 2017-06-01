@@ -7,20 +7,11 @@
 </template>
 
 <script>
-import { Bus } from '../main'
-
 export default {
-  data: {
-    speed: 0,
-    progress: 0
-  },
-  created() {
-    Bus.$on('speed', (speed) => this.speed = speed)
-  },
   methods: {
     raceState() {
-      const width = `${this.progress}%`
-      const ratio = this.speed / 200
+      const width = `${this.$store.getters.percentageCompleted}%`
+      const ratio = this.$store.getters.speed / 200
       const red = (ratio * 255).toFixed(0)
       const blue = ((1 - ratio) * 255).toFixed(0)
       const background = `rgb(${red}, 0, ${blue})`

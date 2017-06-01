@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import { Bus } from '../main.js'
-
 export default {
   data () {
     return {
@@ -59,6 +57,7 @@ export default {
           this.userText += value
           this.input = ''
           this.next++
+          this.$store.commit('completedText', this.userText)
         }
       } else {
         this.playing = false
@@ -66,13 +65,10 @@ export default {
     },
     playing(is) {
       if (is) {
-        Bus.$emit('started')
+        this.$store.dispatch('startTimer')
       } else {
-        Bus.$emit('finished')
+        this.$store.dispatch('stopTimer')
       }
-    },
-    userText(text) {
-      Bus.$emit('updateProgress', text)
     }
   },
   methods: {

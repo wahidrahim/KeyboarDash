@@ -33,10 +33,32 @@ export default new Vuex.Store({
     completedText(state) {
       return state.completedText
     },
+    speed(state) {
+      const mins = state.timer.timeElapsed / 60000
+      const standardWords = state.completedText.length / 5
+      const speed = mins ? (standardWords / mins).toFixed(3) : 0
+
+      return speed
+    },
+    percentageCompleted(state) {
+      return state.completedText.length / state.text.length * 100
+    }
   },
   mutations: {
     completedText(state, completedText) {
       state.completedText = completedText
+    },
+    randomText(state, random) {
+      state.text = random.text
+      state.source = random.source
+    }
+  },
+  actions: {
+    startTimer(context) {
+      context.state.timer.start()
+    },
+    stopTimer(context) {
+      context.state.timer.stop()
     }
   }
 })

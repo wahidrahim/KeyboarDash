@@ -5,18 +5,10 @@
 </template>
 
 <script>
-import { Bus } from '../main'
-
 export default {
   computed: {
     speed() {
-      const mins = this.$store.getters.timeElapsed / 60000
-      const standardWords = this.$store.getters.completedText.length / 5
-      const speed = mins ? (standardWords / mins).toFixed(3) : 0
-
-      Bus.$emit('speed', speed)
-
-      return speed
+      return this.$store.getters.speed
     }
   }
 }

@@ -39,7 +39,6 @@ export default {
     input(value) {
       const totalWords = this.text.words.length
 
-      // used for starting timer
       if (!this.playing) {
         this.playing = true
         this.$store.commit('startTimer')

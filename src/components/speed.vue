@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="speed">
-    {{ speed ? speed : '0.000' }} WPM
+    {{ speed ? speed : '000.000' }} WPM
   </div>
 </template>
 

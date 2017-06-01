@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 import moment from 'moment'
-
 
 Vue.use(Vuex)
 
@@ -27,11 +25,17 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    timeElapsed(state) {
-      return state.timer.timeElapsed
+    originalText(state) {
+      return state.text
+    },
+    textSource(state) {
+      return state.source
     },
     completedText(state) {
       return state.completedText
+    },
+    timeElapsed(state) {
+      return state.timer.timeElapsed
     },
     speed(state) {
       const mins = state.timer.timeElapsed / 60000
@@ -48,17 +52,15 @@ export default new Vuex.Store({
     completedText(state, completedText) {
       state.completedText = completedText
     },
-    randomText(state, random) {
+    newText(state, random) {
       state.text = random.text
       state.source = random.source
-    }
-  },
-  actions: {
-    startTimer(context) {
-      context.state.timer.start()
     },
-    stopTimer(context) {
-      context.state.timer.stop()
+    startTimer(state) {
+      state.timer.start()
+    },
+    stopTimer(state) {
+      state.timer.stop()
     }
   }
 })

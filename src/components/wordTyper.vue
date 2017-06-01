@@ -1,12 +1,12 @@
 <template lang="html">
-  <div class="word-list">
+  <div class="word-typer">
     <div class="text-container">
       <div class="words">
-        <span v-for="word, i in wordsArray" :class="['word', cssClasses(i)]">
+        <span v-for="word, i in text.words" :class="['word', cssClasses(i)]">
           {{ word }}
         </span>
       </div>
-      <div class="source">{{ this.source ? `— ${this.source}` : '' }}</div>
+      <div class="source">{{ text.source ? `— ${text.source}` : '' }}</div>
     </div>
     <input type="text" v-model="input" autofocus></input>
   </div>
@@ -24,33 +24,31 @@ export default {
   },
   computed: {
     text() {
-      return this.$store.state.text
-    },
-    source() {
-      return this.$store.state.source
-    },
-    wordsArray() {
-      return this.text.split(' ')
+      return {
+        words: this.$store.getters.originalText.split(' '),
+        source: this.$store.getters.textSource
+      }
     },
     wrong() {
       return this.input.length ?
-      !this.wordsArray[this.next].startsWith(this.input)
+      !this.text.words[this.next].startsWith(this.input)
       : false
     }
   },
   watch: {
     input(value) {
-      const totalWords = this.wordsArray.length
+      const totalWords = this.text.words.length
 
       // used for starting timer
       if (!this.playing) {
         this.playing = true
+        this.$store.commit('startTimer')
       }
 
       // user has not finished typing all the words
       if (this.next < totalWords) {
         const last = this.next === totalWords - 1
-        const word = this.wordsArray[this.next]
+        const word = this.text.words[this.next]
 
         // completed typing a word
         if (value === `${word} ` || last && value === word) {
@@ -61,13 +59,7 @@ export default {
         }
       } else {
         this.playing = false
-      }
-    },
-    playing(is) {
-      if (is) {
-        this.$store.dispatch('startTimer')
-      } else {
-        this.$store.dispatch('stopTimer')
+        this.$store.commit('stopTimer')
       }
     }
   },
@@ -91,7 +83,7 @@ export default {
   line-height: $unit * 1.5;
 }
 
-.word-list {
+.word-typer {
   &.loading {
     position: relative;
 

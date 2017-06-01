@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div id="app">
-      <word-list :class="{loading}"></word-list>
+      <word-typer :class="{loading}"></word-typer>
       <race></race>
       <div class="stats">
         <speed></speed>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import WordList from './components/wordList.vue'
+import WordTyper from './components/wordTyper.vue'
 import Race from './components/race.vue'
 import TimeElapsed from './components/timeElapsed.vue'
 import Speed from './components/speed.vue'
@@ -20,7 +20,7 @@ import Speed from './components/speed.vue'
 export default {
   name: 'app',
   components: {
-    WordList,
+    WordTyper,
     Race,
     TimeElapsed,
     Speed
@@ -43,7 +43,7 @@ export default {
         const text = res.body.quoteText.trim()
         const source = res.body.quoteAuthor
 
-        this.$store.commit('randomText', { text, source })
+        this.$store.commit('newText', { text, source })
         this.loading = false
       }
     }, (err) => {

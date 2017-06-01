@@ -2,7 +2,7 @@
   <div class="time-elapsed">
     <!-- {{ seconds }}:{{ milliseconds }} -->
     <!-- {{ seconds | timeElapsed }} -->
-    {{ timer.milliseconds | timeElapsed }}
+    {{ time | timeElapsed }}
   </div>
 </template>
 
@@ -10,10 +10,11 @@
 import moment from 'moment'
 
 export default {
-  props: {
-    // seconds: { type: Number },
-    // milliseconds: { type: Number }
-    timer: { type: Object }
+  computed: {
+    time() {
+      // return this.$store.state.timer.timeElapsed
+      return this.$store.getters.timeElapsed
+    }
   },
   filters: {
     timeElapsed: function(ms) {

@@ -7,16 +7,15 @@
 </template>
 
 <script>
+import { Bus } from '../main'
+
 export default {
-  props: {
-    progress: {
-      default: 0,
-      type: Number
-    },
-    speed: {
-      default: 0,
-      // type: Number
-    }
+  data: {
+    speed: 0,
+    progress: 0
+  },
+  created() {
+    Bus.$on('speed', (speed) => this.speed = speed)
   },
   methods: {
     raceState() {

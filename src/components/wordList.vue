@@ -16,10 +16,6 @@
 import { Bus } from '../main.js'
 
 export default {
-  props: {
-    text: { type: String },
-    source: { type: String }
-  },
   data () {
     return {
       input: '',
@@ -29,6 +25,12 @@ export default {
     }
   },
   computed: {
+    text() {
+      return this.$store.state.text
+    },
+    source() {
+      return this.$store.state.source
+    },
     wordsArray() {
       return this.text.split(' ')
     },

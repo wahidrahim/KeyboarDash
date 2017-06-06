@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="speed">
-    {{ speed ? speed : '000.000' }} WPM
+    {{ speed ? speed : '000.00' }} WPM
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 export default {
   computed: {
     speed() {
-      return this.$store.getters.speed
+      return this.$store.getters.speed.toFixed(2)
     }
   }
 }

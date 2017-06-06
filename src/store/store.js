@@ -40,7 +40,7 @@ export default new Vuex.Store({
     speed(state) {
       const mins = state.timer.timeElapsed / 60000
       const standardWords = state.completedText.length / 5
-      const speed = mins ? (standardWords / mins).toFixed(3) : 0
+      const speed = mins ? standardWords / mins : 0
 
       return speed
     },

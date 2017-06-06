@@ -77,8 +77,8 @@ export default {
 <style lang="scss" scoped>
 @mixin font-style($unit) {
   font-family: serif;
+  word-spacing: 4px;
   font-size: $unit;
-  word-spacing: $unit / 2;
   line-height: $unit * 1.5;
 }
 
@@ -140,7 +140,7 @@ export default {
     border: 1px solid black;
     border-radius: 3px;
     box-sizing: border-box;
-    padding: 5px 15px;
+    padding: 10px 20px;
     outline: none;
 
     &:focus {

@@ -30,6 +30,7 @@ $height: 25px;
     height: $height;
     box-sizing: border-box;
     margin-top: 15px;
+    margin-bottom: 10px;
 
     .progress {
       height: 100%;

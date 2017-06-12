@@ -7,6 +7,9 @@
         <speed></speed>
         <time-elapsed></time-elapsed>
       </div>
+      <div class="graph">
+        <speed-graph></speed-graph>
+      </div>
     </div>
   </div>
 </template>
@@ -16,6 +19,7 @@ import WordTyper from './components/wordTyper.vue'
 import Race from './components/race.vue'
 import TimeElapsed from './components/timeElapsed.vue'
 import Speed from './components/speed.vue'
+import SpeedGraph from './components/SpeedGraph.vue'
 
 export default {
   name: 'app',
@@ -23,7 +27,8 @@ export default {
     WordTyper,
     Race,
     TimeElapsed,
-    Speed
+    Speed,
+    SpeedGraph
   },
   data() {
     return {

@@ -143,9 +143,9 @@ export default {
     }
   },
   watch: {
-    time(t) {
+    value() {
       this.points.push({
-        x: t,
+        x: this.time,
         y: this.value
       })
     }

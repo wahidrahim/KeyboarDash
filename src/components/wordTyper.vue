@@ -75,6 +75,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$green: #3CBA54;
+
 @mixin font-style($unit) {
   font-family: serif;
   word-spacing: 4px;
@@ -109,7 +111,8 @@ export default {
       padding: 10px 20px;
       display: flex;
       flex-wrap: wrap;
-      background: white;;
+      color: black;
+      background: white;
       @include font-style(32px);
 
       .word {
@@ -117,7 +120,7 @@ export default {
           box-shadow: 0px 1px 0px 0px black;
         }
         &.correct {
-          color: green;
+          color: $green;
         }
         &.incorrect {
           color: red;
@@ -134,6 +137,7 @@ export default {
       min-height: 15px;
     }
   }
+
   input {
     @include font-style(32px);
     width: 100%;
@@ -142,6 +146,7 @@ export default {
     box-sizing: border-box;
     padding: 10px 20px;
     outline: none;
+    color: black;
 
     &:focus {
     }

@@ -54,8 +54,12 @@ export default {
 </script>
 
 <style lang="scss">
+$blue: #4885ED;
+
 body {
   margin: 15px;
+  background: $blue;
+  color: white;
 }
 
 .container {

@@ -34,6 +34,8 @@ $height: 25px;
 
     .progress {
       height: 100%;
+      box-sizing: border-box;
+      border: 1px solid black;
       border-top-left-radius: 3px;
       border-bottom-left-radius: 3px;
       border-top-right-radius: $height / 2;

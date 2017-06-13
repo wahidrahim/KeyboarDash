@@ -7,15 +7,17 @@
         <speed></speed>
         <time-elapsed></time-elapsed>
       </div>
+      <save-modal v-if="finished"></save-modal>
     </div>
   </div>
 </template>
 
 <script>
-import WordTyper from './components/wordTyper.vue'
-import Race from './components/race.vue'
-import TimeElapsed from './components/timeElapsed.vue'
-import Speed from './components/speed.vue'
+import WordTyper from './components/WordTyper.vue'
+import Race from './components/Race.vue'
+import TimeElapsed from './components/TimeElapsed.vue'
+import Speed from './components/Speed.vue'
+import SaveModal from './components/SaveModal.vue'
 
 export default {
   name: 'app',
@@ -23,11 +25,17 @@ export default {
     WordTyper,
     Race,
     TimeElapsed,
-    Speed
+    Speed,
+    SaveModal
   },
   data() {
     return {
       loading: false
+    }
+  },
+  computed: {
+    finished() {
+      return this.$store.getters.finished
     }
   },
   created() {
@@ -43,7 +51,7 @@ export default {
         const text = res.body.quoteText.trim()
         const source = res.body.quoteAuthor
 
-        this.$store.commit('newText', { text, source })
+        this.$store.dispatch('updateText', { text, source })
         this.loading = false
       }
     }, (err) => {
@@ -54,11 +62,9 @@ export default {
 </script>
 
 <style lang="scss">
-$blue: #4885ED;
-
 body {
   margin: 15px;
-  background: $blue;
+  background: lightslategray;
   color: white;
 }
 

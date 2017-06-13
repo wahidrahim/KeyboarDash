@@ -46,6 +46,9 @@ export default new Vuex.Store({
     },
     percentageCompleted(state) {
       return state.completedText.length / state.text.length * 100
+    },
+    finished(state) {
+      return state.completedText === state.text
     }
   },
   mutations: {
@@ -61,6 +64,20 @@ export default new Vuex.Store({
     },
     stopTimer(state) {
       state.timer.stop()
+    }
+  },
+  actions: {
+    updateCompletedText({ commit }, userText) {
+      commit('completedText', userText)
+    },
+    updateText({ commit }, text) {
+      commit('newText', text)
+    },
+    startTimer({ commit }) {
+      commit('startTimer')
+    },
+    stopTimer({ commit }) {
+      commit('stopTimer')
     }
   }
 })

@@ -41,7 +41,7 @@ export default {
 
       if (!this.playing) {
         this.playing = true
-        this.$store.commit('startTimer')
+        this.$store.dispatch('startTimer')
       }
 
       // user has not finished typing all the words
@@ -54,11 +54,11 @@ export default {
           this.userText += value
           this.input = ''
           this.next++
-          this.$store.commit('completedText', this.userText)
+          this.$store.dispatch('updateCompletedText', this.userText)
         }
       } else {
         this.playing = false
-        this.$store.commit('stopTimer')
+        this.$store.dispatch('stopTimer')
       }
     }
   },
@@ -75,8 +75,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$green: #3CBA54;
-
 @mixin font-style($unit) {
   font-family: serif;
   word-spacing: 4px;
@@ -120,7 +118,7 @@ $green: #3CBA54;
           box-shadow: 0px 1px 0px 0px black;
         }
         &.correct {
-          color: $green;
+          color: limegreen;
         }
         &.incorrect {
           color: red;

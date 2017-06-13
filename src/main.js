@@ -9,7 +9,6 @@ Vue.use(VueResource)
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: App },
   { path: '/scores', component: ScoreBoard }
 ]
 

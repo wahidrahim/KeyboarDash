@@ -102,6 +102,9 @@ export default {
     }
   },
   computed: {
+    completedText() {
+      return this.$store.getters.completedText
+    },
     value() {
       return this.$store.getters.speed
     },
@@ -147,12 +150,12 @@ export default {
     }
   },
   watch: {
-    value() {
+    completedText() {
       this.points.push({
         x: this.time,
         y: this.value
       })
-    }
+    },
   },
   methods: {
     valueLineHeight() {
@@ -194,7 +197,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #graph {
   text-align: center;
 

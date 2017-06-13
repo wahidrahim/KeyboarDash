@@ -75,8 +75,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$green: #3CBA54;
-
 @mixin font-style($unit) {
   font-family: serif;
   word-spacing: 4px;
@@ -121,7 +119,7 @@ $green: #3CBA54;
           box-shadow: 0px 1px 0px 0px black;
         }
         &.correct {
-          color: $green;
+          color: limegreen;
         }
         &.incorrect {
           color: red;

@@ -9,6 +9,7 @@
       </div>
       <save-modal v-if="finished"></save-modal>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 

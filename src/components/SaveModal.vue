@@ -45,7 +45,7 @@ export default {
       }
 
       this.$http.post(url, data).then((res) => {
-        // refresh page
+        this.$router.push('score')
       })
     }
   }

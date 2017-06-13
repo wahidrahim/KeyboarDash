@@ -101,6 +101,7 @@ $green: #3CBA54;
       position: absolute;
       top: 3px;
       left: 5px;
+      color: black;
     }
   }
 

@@ -3,10 +3,14 @@
     <svg class="graph" :width="width" :height="height">
       <defs>
         <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:rgba(255,54,102,0.5);stop-opacity:1" />
-          <stop offset="100%" style="stop-color:rgba(42,174,255,0.5);stop-opacity:1" />
+          <!-- <stop offset="0%" style="stop-color:rgba(255,54,102,0.5);stop-opacity:1" /> -->
+          <!-- <stop offset="100%" style="stop-color:rgba(42,174,255,0.5);stop-opacity:1" /> -->
+          <stop offset="0%" style="stop-color:rgba(255, 0, 0, 0.5);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgba(0, 0, 255, 0.8);stop-opacity:1" />
         </linearGradient>
       </defs>
+      <!-- background -->
+      <rect :width="width" :height="height" fill="white"></rect>
       <!-- x label -->
       <text class="axis-label"
       :x="width / 2 - 20"
@@ -28,7 +32,7 @@
       :x2="xInterval(i)"
       :y2="0"
       fill="none"
-      stroke="darkgray"></line>
+      stroke="lightgray"></line>
       <!-- x interval labels -->
       <text class="time-label"
       v-for="i in maxXintervals"
@@ -54,7 +58,7 @@
       :x1="0"
       :y1="yInterval(i)"
       :x2="width"
-      :y2="yInterval(i)" stroke="darkgray"
+      :y2="yInterval(i)" stroke="lightgray"
       fill="none"></line>
       <!-- y interval labels -->
       <text class="value-label"
@@ -89,8 +93,8 @@ export default {
   data() {
     return {
       points: [], // contains point objects - { x: 12, y: 34 }, { x: 56, y: 78 } ...
-      width: 500, // svg width
-      height: 300, // svg height
+      width: 600, // svg width
+      height: 400, // svg height
       maxValue: 0, // highest y-value in the graph
       maxXintervals: 30, // graph shows 30 vertical lines at max
       maxYintervals: 10, // graph shows 10 horizontal lines at max
@@ -192,8 +196,10 @@ export default {
 
 <style lang="scss">
 #graph {
+  text-align: center;
+
   .graph {
-    border: 1px solid black;
+    // border: 1px solid black;
     padding: 100px;
 
     .time-label,
@@ -209,7 +215,8 @@ export default {
 
     .current-value {
       font-size: 14px;
-      fill: white;
+      fill: black;
+      font-weight: bold;
     }
   }
 }

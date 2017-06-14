@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div id="app">
-      <transition name="fade">
+      <transition name="slide">
         <router-view></router-view>
       </transition>
       <!-- <word-typer :class="{loading}"></word-typer>
@@ -38,10 +38,37 @@ body {
 
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .2s
+
+.slide-enter-active {
+    animation: slide-in 200ms ease-out forwards;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
-  opacity: 0
+
+.slide-leave-active {
+    animation: slide-out 200ms ease-out forwards;
+
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1
+    }
+}
+
+@keyframes slide-out {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(-30px);
+        opacity: 0;
+    }
 }
 </style>

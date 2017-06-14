@@ -3,7 +3,7 @@
     <div id="app">
       <word-typer :class="{loading}"></word-typer>
       <race></race>
-      <div class="stats">
+      <div class="stats" v-show="finished">
         <speed></speed>
         <time-elapsed></time-elapsed>
       </div>
@@ -33,6 +33,11 @@ export default {
   data() {
     return {
       loading: false
+    }
+  },
+  computed: {
+    finished() {
+      return this.$store.getters.finished
     }
   },
   created() {
@@ -72,6 +77,7 @@ body {
 #app {
   .stats {
     font-family: sans-serif;
+    text-align: center;
   }
 }
 </style>

@@ -92,6 +92,7 @@ export default {
 
     input {
       margin-top: 15px;
+
     }
 
     &:before {

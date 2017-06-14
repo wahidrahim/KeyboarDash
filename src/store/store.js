@@ -46,6 +46,9 @@ export default new Vuex.Store({
     },
     percentageCompleted(state) {
       return state.completedText.length / state.text.length * 100
+    },
+    finished(state) {
+      return state.completedText === state.text
     }
   },
   mutations: {

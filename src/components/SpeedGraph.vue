@@ -221,13 +221,13 @@ export default {
 
     .current-value {
       font-weight: bold;
-      fill: firebrick;
+      fill: yellow;
       // font-size: 14px;
       // font-family: sans-serif;
     }
 
     .current-value-line {
-      stroke: firebrick;
+      stroke: black;
     }
   }
 }

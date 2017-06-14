@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <div id="app">
-      <word-typer :class="{loading}"></word-typer>
+      <transition name="fade">
+        <router-view></router-view>
+      </transition>
+      <!-- <word-typer :class="{loading}"></word-typer>
       <race></race>
       <div class="stats" v-show="finished">
         <speed></speed>
@@ -9,57 +12,14 @@
       </div>
       <div class="graph">
         <speed-graph></speed-graph>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import WordTyper from './components/wordTyper.vue'
-import Race from './components/race.vue'
-import TimeElapsed from './components/timeElapsed.vue'
-import Speed from './components/speed.vue'
-import SpeedGraph from './components/SpeedGraph.vue'
-
 export default {
-  name: 'app',
-  components: {
-    WordTyper,
-    Race,
-    TimeElapsed,
-    Speed,
-    SpeedGraph
-  },
-  data() {
-    return {
-      loading: false
-    }
-  },
-  computed: {
-    finished() {
-      return this.$store.getters.finished
-    }
-  },
-  created() {
-    const url = 'https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
-
-    this.loading = true
-
-    this.$http.get(url).then((res) => {
-      if (!res.body) {
-        this.loading = false
-        return
-      } else {
-        const text = res.body.quoteText.trim()
-        const source = res.body.quoteAuthor
-
-        this.$store.commit('newText', { text, source })
-        this.loading = false
-      }
-    }, (err) => {
-      this.loading = false
-    })
-  }
+  name: 'app'
 }
 </script>
 
@@ -75,9 +35,13 @@ body {
 }
 
 #app {
-  .stats {
-    font-family: sans-serif;
-    text-align: center;
-  }
+
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
 }
 </style>

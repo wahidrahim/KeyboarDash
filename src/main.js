@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import VueRouter from 'vue-router'
 import App from './App.vue'
 import store from './store/store'
+import routes from './routes'
 
 import moment from 'moment'
 
 Vue.use(VueResource)
+Vue.use(VueRouter)
 
 Vue.filter('formatTime', function(ms) {
   const zeroTime = moment('2016-06-12 00:00:00')
@@ -21,8 +24,11 @@ Vue.filter('formatTime', function(ms) {
   }
 })
 
+const router = new VueRouter({ routes })
+
 new Vue({
   el: '#app',
   store,
+  router,
   render: h => h(App)
 })

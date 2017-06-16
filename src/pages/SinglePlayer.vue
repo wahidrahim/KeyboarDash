@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="single-player">
-    <word-typer :class="{loading}"></word-typer>
+    <word-typer :class="{loading}" :loading="loading"></word-typer>
     <race></race>
     <stats v-show="finished"></stats>
     <button class="btn-save" v-show="finished" @click="saveScore = true">Save</button>

@@ -82,7 +82,9 @@
       :y="valueLineHeight() - 3"
       fill="orangered">{{ value.toFixed(2) }}</text>
     </svg>
-    <div class="waiting" v-if="!maxValue"></div>
+    <div class="waiting" v-if="!time">
+      waiting for input<br>
+    </div>
   </div>
 </template>
 
@@ -242,13 +244,14 @@ export default {
   }
 
   .waiting {
-    font-size: 30px;
+    font-size: 16px;
     font-family: sans-serif;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
+    color: rgba(0, 0, 0, 0.5);
   }
 
   .waiting:after {

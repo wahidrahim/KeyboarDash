@@ -8,12 +8,13 @@
       </div>
       <div class="source">{{ text.source ? `— ${text.source}` : '' }}</div>
     </div>
-    <input type="text" v-model="input" autofocus></input>
+    <input type="text" v-model="input" placeholder="start typing!" autofocus></input>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['loading'],
   data () {
     return {
       input: '',
@@ -147,6 +148,14 @@ export default {
     padding: 10px 20px;
     outline: none;
     color: black;
+
+    &:disabled {
+      background: lightgray;
+    }
+
+    &::placeholder {
+      color: lightgray;
+    }
 
     &:focus {
     }

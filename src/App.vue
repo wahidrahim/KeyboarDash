@@ -1,18 +1,9 @@
 <template>
   <div class="container">
     <div id="app">
-      <transition name="slide">
+      <transition>
         <router-view></router-view>
       </transition>
-      <!-- <word-typer :class="{loading}"></word-typer>
-      <race></race>
-      <div class="stats" v-show="finished">
-        <speed></speed>
-        <time-elapsed></time-elapsed>
-      </div>
-      <div class="graph">
-        <speed-graph></speed-graph>
-      </div> -->
     </div>
   </div>
 </template>

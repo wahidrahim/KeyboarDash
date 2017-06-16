@@ -2,46 +2,49 @@
   <div class="single-player">
     <word-typer :class="{loading}"></word-typer>
     <race></race>
-    <div class="stats" v-show="finished">
-      <speed></speed>
-      <time-elapsed></time-elapsed>
-    </div>
-    <button class="btn-save" @click="save">Save</button>
-    <div class="graph">
-      <speed-graph></speed-graph>
-    </div>
+    <stats v-show="finished"></stats>
+    <button class="btn-save" v-show="finished" @click="saveScore = true">Save</button>
+    <speed-graph v-show="playing" :width="565" :height="353"></speed-graph>
+    <save-score v-if="saveScore" @close="saveScore = false"></save-score>
   </div>
 </template>
 
 <script>
-import WordTyper from '../components/wordTyper.vue'
-import Race from '../components/race.vue'
-import TimeElapsed from '../components/timeElapsed.vue'
-import Speed from '../components/speed.vue'
+import WordTyper from '../components/WordTyper.vue'
+import Race from '../components/Race.vue'
+import Stats from '../components/Stats.vue'
 import SpeedGraph from '../components/SpeedGraph.vue'
+import SaveScore from '../components/SaveScore.vue'
 
 export default {
   name: 'SinglePlayer',
   components: {
     WordTyper,
     Race,
-    TimeElapsed,
-    Speed,
-    SpeedGraph
+    Stats,
+    SpeedGraph,
+    SaveScore
   },
   data() {
     return {
-      loading: false
+      loading: false,
+      saveScore: false
     }
   },
   computed: {
+    playing() {
+      return this.$store.getters.timeElapsed
+    },
     finished() {
       return this.$store.getters.finished
     }
   },
   created() {
+    this.$store.dispatch('reset')
+
     const url = 'https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
 
+    console.log('here')
     this.loading = true
 
     this.$http.get(url).then((res) => {
@@ -52,7 +55,7 @@ export default {
         const text = res.body.quoteText.trim()
         const source = res.body.quoteAuthor
 
-        this.$store.commit('newText', { text, source })
+        this.$store.dispatch('reset', { text, source })
         this.loading = false
       }
     }, (err) => {
@@ -75,11 +78,18 @@ export default {
   }
 
   .btn-save {
-    // outline: none;
     border: 1px solid black;
     font-size: 16px;
     border-radius: 3px;
-    background: lightskyblue;
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: white;
+
+    &:hover {
+      background: whitesmoke;
+      cursor: pointer;
+    }
   }
 }
 </style>

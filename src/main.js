@@ -24,6 +24,10 @@ Vue.filter('formatTime', function(ms) {
   }
 })
 
+Vue.filter('dateFormat', (date) => {
+  return moment(date).format('MMMM Do, YYYY - HH:mm:ss')
+})
+
 const router = new VueRouter({ routes })
 
 new Vue({

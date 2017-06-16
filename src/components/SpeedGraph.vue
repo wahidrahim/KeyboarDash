@@ -67,6 +67,7 @@
       <polyline :points="plot" fill="url(#gradient)" stroke="black"></polyline>
       <!-- current value line -->
       <line class="current-value-line"
+      stroke-dasharray="5, 5"
       v-show="maxValue > 0"
       fill="none"
       :x1="-50"
@@ -87,12 +88,19 @@
 <script>
 export default {
   name: 'graph',
-  // props: ['value', 'time'],
+  props: {
+    width: {
+      default: 600,
+      type: Number
+    },
+    height: {
+      default: 400,
+      type: Number
+    }
+  },
   data() {
     return {
       points: [], // contains point objects - { x: 12, y: 34 }, { x: 56, y: 78 } ...
-      width: 600, // svg width
-      height: 400, // svg height
       maxValue: 0, // highest y-value in the graph
       maxXintervals: 30, // graph shows 30 vertical lines at max
       maxYintervals: 10, // graph shows 10 horizontal lines at max
@@ -201,7 +209,7 @@ export default {
 
   .graph {
     // border: 1px solid black;
-    padding: 100px;
+    padding: 10px 75px 55px;
 
     .time-label,
     .value-label,
@@ -221,7 +229,7 @@ export default {
 
     .current-value {
       font-weight: bold;
-      fill: yellow;
+      fill: lightgray;
       // font-size: 14px;
       // font-family: sans-serif;
     }

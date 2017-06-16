@@ -4,10 +4,13 @@ import moment from 'moment'
 
 Vue.use(Vuex)
 
+const defaultText = 'If you want to become life sensitive, a simple process that you do is this: make whatever you think and whatever you feel less important. Try and see for one day. Suddenly you will feel the breeze, the rain, the flowers and the people, everything in a completely different way. Suddenly the life in you becomes much more active and alive for your experience.'
+const defaultSource = 'Sadhguru Jaggi Vasudev'
+
 export default new Vuex.Store({
   state: {
-    text: 'If you want to become life sensitive, a simple process that you do is this: make whatever you think and whatever you feel less important. Try and see for one day. Suddenly you will feel the breeze, the rain, the flowers and the people, everything in a completely different way. Suddenly the life in you becomes much more active and alive for your experience.',
-    source: 'Sadhguru Jaggi Vasudev',
+    text: defaultText,
+    source: defaultSource,
     completedText: '',
     timer: {
       timeElapsed: 0,
@@ -56,14 +59,31 @@ export default new Vuex.Store({
       state.completedText = completedText
     },
     newText(state, random) {
-      state.text = random.text
-      state.source = random.source
+      if (random) {
+        state.text = random.text
+        state.source = random.source
+      } else {
+        state.text =  defaultText
+        state.source = defaultSource
+      }
     },
     startTimer(state) {
       state.timer.start()
     },
     stopTimer(state) {
       state.timer.stop()
+    },
+    resetTimer(state) {
+      state.timer.timeElapsed = 0
+      state.timer.startTime = null
+      state.timer.clock = null
+    }
+  },
+  actions: {
+    reset({ commit }, randomText) {
+      commit('newText', randomText)
+      commit('completedText', '')
+      commit('resetTimer')
     }
   }
 })

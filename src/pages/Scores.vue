@@ -66,6 +66,7 @@ export default {
 
     .text {
       font-family: serif;
+      font-size: 20px;
       margin-bottom: 0;
     }
 

@@ -4,7 +4,7 @@
     <race></race>
     <stats v-show="finished"></stats>
     <button class="btn-save" v-show="finished" @click="saveScore = true">Save</button>
-    <speed-graph v-show="playing" :width="565" :height="353"></speed-graph>
+    <speed-graph :width="565" :height="353"></speed-graph>
     <save-score v-if="saveScore" @close="saveScore = false"></save-score>
   </div>
 </template>
@@ -44,7 +44,6 @@ export default {
 
     const url = 'https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
 
-    console.log('here')
     this.loading = true
 
     this.$http.get(url).then((res) => {

@@ -82,6 +82,7 @@
       :y="valueLineHeight() - 3"
       fill="orangered">{{ value.toFixed(2) }}</text>
     </svg>
+    <div class="waiting">wating</div>
   </div>
 </template>
 
@@ -206,6 +207,7 @@ export default {
 <style lang="scss" scoped>
 #graph {
   text-align: center;
+  position: relative;
 
   .graph {
     // border: 1px solid black;
@@ -236,6 +238,38 @@ export default {
 
     .current-value-line {
       stroke: black;
+    }
+  }
+
+  .waiting {
+    font-size: 30px;
+    font-family: sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+  }
+
+  .waiting:after {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    -webkit-animation: ellipsis steps(4,end) 900ms infinite;
+    animation: ellipsis steps(4,end) 900ms infinite;
+    content: "\2026"; /* ascii code for the ellipsis character */
+    width: 0px;
+  }
+
+  @keyframes ellipsis {
+    to {
+      width: 1.25em;
+    }
+  }
+
+  @-webkit-keyframes ellipsis {
+    to {
+      width: 1.25em;
     }
   }
 }

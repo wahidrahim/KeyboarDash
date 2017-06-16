@@ -8,19 +8,23 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 const scoresRef = database.ref('scores')
-let scores = []
+const getScores = function(orderBy = 'date') {
+  let scores = []
 
-scoresRef.orderByChild('date').on('child_added', (snapshot) => {
-  scores.unshift(snapshot.val())
-})
-
-export default function(orderBy) {
   if (orderBy) {
     scores = []
-    scoresRef.orderByChild(orderBy).on('child_added', (snapshot) => {
-      scores.unshift(snapshot.val())
-    })
+    if (orderBy === 'date' || orderBy === 'speed') {
+      scoresRef.orderByChild(orderBy).on('child_added', (snapshot) => {
+        scores.unshift(snapshot.val())
+      })
+    } else {
+      scoresRef.orderByChild(orderBy).on('child_added', (snapshot) => {
+        scores.push(snapshot.val())
+      })
+    }
   }
 
   return scores
 }
+
+export default getScores

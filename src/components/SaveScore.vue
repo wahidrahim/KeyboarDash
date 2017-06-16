@@ -8,7 +8,7 @@
         </span>
       </div>
       <form @submit.prevent="save">
-        <input type="text" placeholder="Anonymous" v-model="name">
+        <input type="text" v-model="name" @click="selectText" ref="nameInput">
         <button type="submit">Save</button>
       </form>
     </div>
@@ -19,7 +19,7 @@
 export default {
   data() {
     return {
-      name: ''
+      name: 'Anonymous'
     }
   },
   computed: {
@@ -53,7 +53,13 @@ export default {
     },
     close() {
       this.$emit('close')
+    },
+    selectText() {
+      this.$refs.nameInput.select()
     }
+  },
+  mounted() {
+    this.selectText()
   }
 }
 </script>

@@ -3,7 +3,24 @@
     <h1>
       Scoreboard
     </h1>
-    <!-- <button @click="speed">speed</button> -->
+    <span class="home" @click="home">
+      <i class="fa fa-chevron-left" aria-hidden="true"></i>
+      Back
+    </span>
+    <div class="sorts">
+      <label>
+        <input type="radio" name="sortBy" @click="sortBy('date')" checked>
+        Date
+      </label>
+      <label>
+        <input type="radio" name="sortBy" @click="sortBy('speed')">
+        Speed
+      </label>
+      <label>
+        <input type="radio" name="sortBy" @click="sortBy('name')">
+        Name
+      </label>
+    </div>
     <div v-for="score in scores" class="score">
       <div class="date">
         <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -32,7 +49,7 @@
 </template>
 
 <script>
-import scores from '../database/db'
+import getScoresBy from '../database/db'
 
 export default {
   name: 'Scores',
@@ -48,11 +65,14 @@ export default {
     }
   },
   created() {
-    this.scores = scores()
+    this.scores = getScoresBy()
   },
   methods: {
-    speed() {
-      this.scores = scores('speed')
+    sortBy(by) {
+      this.scores = getScoresBy(by)
+    },
+    home() {
+      this.$router.push('/')
     }
   }
 }
@@ -71,7 +91,7 @@ export default {
     padding: 10px 20px;
     font-size: 18px;
     border: 1px solid black;
-    margin-bottom: 10px;
+    margin: 10px 0;
 
     .name {
       // font-weight: bold;
@@ -102,6 +122,26 @@ export default {
       text-align: right;
       font-style: italic;
       font-family: serif;
+    }
+  }
+
+  .home {
+    font-size: 20px;
+    color: white;
+
+    &:hover {
+      color: lightblue;
+      cursor: pointer;
+    }
+  }
+
+  .sorts {
+    float: right;
+    text-align: right;
+
+    .btn-sort {
+      font-size: 14px;
+      padding: 10px;
     }
   }
 }

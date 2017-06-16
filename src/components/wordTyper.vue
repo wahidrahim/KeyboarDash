@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  props: ['loading'],
   data () {
     return {
       input: '',
@@ -92,6 +93,7 @@ export default {
 
     input {
       margin-top: 15px;
+
     }
 
     &:before {
@@ -99,6 +101,7 @@ export default {
       position: absolute;
       top: 3px;
       left: 5px;
+      color: black;
     }
   }
 
@@ -145,6 +148,14 @@ export default {
     padding: 10px 20px;
     outline: none;
     color: black;
+
+    &:disabled {
+      background: lightgray;
+    }
+
+    &::placeholder {
+      color: lightgray;
+    }
 
     &:focus {
     }

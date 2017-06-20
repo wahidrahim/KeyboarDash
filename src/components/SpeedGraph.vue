@@ -213,7 +213,7 @@ export default {
 
   .graph {
     // border: 1px solid black;
-    padding: 10px 75px 55px;
+    padding: 10px 45px 55px 75px;
 
     .time-label,
     .value-label,
@@ -244,7 +244,7 @@ export default {
   }
 
   .waiting {
-    font-size: 16px;
+    font-size: 32px;
     font-family: sans-serif;
     position: absolute;
     top: 50%;

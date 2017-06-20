@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import App from './App.vue'
-import ScoreBoard from './pages/ScoreBoard.vue'
 import store from './store/store'
 import routes from './routes'
 

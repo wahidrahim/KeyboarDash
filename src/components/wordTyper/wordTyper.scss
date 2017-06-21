@@ -1,0 +1,86 @@
+@mixin font-style($unit) {
+  font-family: serif;
+  word-spacing: 4px;
+  font-size: $unit;
+  line-height: $unit * 1.5;
+}
+
+.word-typer {
+  &.loading {
+    position: relative;
+
+    .word, .source {
+      display: none;
+    }
+
+    input {
+      margin-top: 15px;
+
+    }
+
+    &:before {
+      content: 'loading...';
+      position: absolute;
+      top: 3px;
+      left: 5px;
+      color: black;
+    }
+  }
+
+  .text-container {
+    .words {
+      border: 1px solid black;
+      border-radius: 3px;
+      padding: 10px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      color: black;
+      background: white;
+      @include font-style(32px);
+
+      .word {
+        &.next {
+          box-shadow: 0px 1px 0px 0px black;
+        }
+        &.correct {
+          color: limegreen;
+        }
+        &.incorrect {
+          color: red;
+        }
+        &:not(:last-child) {
+          margin-right: 12px;
+        }
+      }
+    }
+
+    .source {
+      text-align: right;
+      font-style: italic;
+      min-height: 15px;
+      color: white;
+    }
+  }
+
+  input {
+    @include font-style(32px);
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    outline: none;
+    color: black;
+
+    &:disabled {
+      background: lightgray;
+    }
+
+    &::placeholder {
+      color: lightgray;
+    }
+
+    &:focus {
+    }
+  }
+}

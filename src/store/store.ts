@@ -9,8 +9,8 @@ interface State {
   source: string
   completedText: string
   timer: {
-    timeElapsed
-    startTime
+    timeElapsed: number
+    startTime: number
     clock
     start
     stop

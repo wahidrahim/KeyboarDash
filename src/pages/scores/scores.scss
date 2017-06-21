@@ -1,0 +1,69 @@
+.scores {
+  font-family: sans-serif;
+  width: 720px;
+  margin: 0 auto;
+
+  h1 {
+    color: white;
+  }
+
+  .score {
+    background: white;
+    border-radius: 3px;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: 1px solid black;
+    margin: 10px 0;
+
+    .name {
+      // font-weight: bold;
+      font-size: 24px;
+    }
+
+    .stats {
+      font-size: 20px;
+
+      .speed {
+        font-size: 28px;
+        font-weight: bold;
+      }
+    }
+
+    .date {
+      float: right;
+      font-size: 16px;
+    }
+
+    .text {
+      font-family: serif;
+      font-size: 20px;
+      margin-bottom: 0;
+    }
+
+    .source {
+      text-align: right;
+      font-style: italic;
+      font-family: serif;
+    }
+  }
+
+  .home {
+    font-size: 20px;
+    color: white;
+
+    &:hover {
+      color: lightblue;
+      cursor: pointer;
+    }
+  }
+
+  .sorts {
+    float: right;
+    text-align: right;
+
+    .btn-sort {
+      font-size: 14px;
+      padding: 10px;
+    }
+  }
+}

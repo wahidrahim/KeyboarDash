@@ -1,8 +1,8 @@
-import WordTyper from 'components/WordTyper.vue'
+import WordTyper from 'components/wordTyper'
 import Race from 'components/Race.vue'
 import Stats from 'components/stats'
 import SpeedGraph from 'components/speedGraph'
-import SaveScore from 'components/SaveScore.vue'
+import SaveScore from 'components/saveScoreModal'
 
 export default {
   name: 'SinglePlayer',

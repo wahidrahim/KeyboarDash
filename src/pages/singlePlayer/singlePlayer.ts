@@ -1,10 +1,12 @@
+import { Vue, Component } from 'vue-property-decorator'
+
 import WordTyper from 'components/wordTyper'
 import Race from 'components/Race.vue'
 import Stats from 'components/stats'
 import SpeedGraph from 'components/speedGraph'
 import SaveScore from 'components/saveScoreModal'
 
-export default {
+@Component({
   name: 'SinglePlayer',
   components: {
     WordTyper,
@@ -12,21 +14,20 @@ export default {
     Stats,
     SpeedGraph,
     SaveScore
-  },
-  data() {
-    return {
-      loading: false,
-      saveScore: false
-    }
-  },
-  computed: {
-    playing() {
+  }
+})
+export default class SinglePlayer extends Vue {
+  loading: boolean = false
+  saveScore: boolean = false
+
+  get playing() {
       return this.$store.getters.timeElapsed
-    },
-    finished() {
+    }
+
+  get finished() {
       return this.$store.getters.finished
     }
-  },
+
   created() {
     this.$store.dispatch('reset')
 
@@ -48,10 +49,9 @@ export default {
     }, (err) => {
       this.loading = false
     })
-  },
-  methods: {
-    save() {
-      this.$router.push('scores')
-    }
+  }
+
+  save() {
+    this.$router.push('scores')
   }
 }

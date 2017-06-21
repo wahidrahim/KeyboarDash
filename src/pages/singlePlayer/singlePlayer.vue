@@ -14,5 +14,5 @@
   </div>
 </template>
 
-<script src="./singlePlayer.ts"></script>
+<script lang="ts" src="./singlePlayer.ts"></script>
 <style lang="scss" src="./singlePlayer.scss" scoped></style>

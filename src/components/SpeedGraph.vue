@@ -247,32 +247,17 @@ export default {
     font-size: 32px;
     font-family: sans-serif;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
     color: rgba(0, 0, 0, 0.5);
+    animation: blink 1s steps(2, start) infinite;
   }
 
-  .waiting:after {
-    overflow: hidden;
-    display: inline-block;
-    vertical-align: bottom;
-    -webkit-animation: ellipsis steps(4,end) 900ms infinite;
-    animation: ellipsis steps(4,end) 900ms infinite;
-    content: "\2026"; /* ascii code for the ellipsis character */
-    width: 0px;
-  }
-
-  @keyframes ellipsis {
+  @keyframes blink {
     to {
-      width: 1.25em;
-    }
-  }
-
-  @-webkit-keyframes ellipsis {
-    to {
-      width: 1.25em;
+      visibility: hidden;
     }
   }
 }

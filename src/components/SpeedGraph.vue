@@ -233,7 +233,7 @@ export default {
 
     .current-value {
       font-weight: bold;
-      fill: lightgray;
+      fill: white;
       font-size: 12px;
       // font-family: sans-serif;
     }

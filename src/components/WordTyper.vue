@@ -136,6 +136,7 @@ export default {
       text-align: right;
       font-style: italic;
       min-height: 15px;
+      color: white;
     }
   }
 

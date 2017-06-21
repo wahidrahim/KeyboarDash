@@ -8,7 +8,7 @@
       </div>
       <div class="source">{{ text.source ? `— ${text.source}` : '' }}</div>
     </div>
-    <input type="text" v-model="input" autofocus></input>
+    <input v-show="!loading" type="text" v-model="input" autofocus></input>
   </div>
 </template>
 

@@ -4,6 +4,19 @@ import moment from 'moment'
 
 Vue.use(Vuex)
 
+interface State {
+  text: string
+  source: string
+  completedText: string
+  timer: {
+    timeElapsed
+    startTime
+    clock
+    start
+    stop
+  }
+}
+
 const defaultText = 'If you want to become life sensitive, a simple process that you do is this: make whatever you think and whatever you feel less important. Try and see for one day. Suddenly you will feel the breeze, the rain, the flowers and the people, everything in a completely different way. Suddenly the life in you becomes much more active and alive for your experience.'
 const defaultSource = 'Sadhguru Jaggi Vasudev'
 
@@ -28,7 +41,7 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    originalText(state) {
+    originalText(state: State) {
       return state.text
     },
     textSource(state) {

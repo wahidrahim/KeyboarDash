@@ -7,7 +7,9 @@
       <button class="btn-save" v-show="finished" @click="saveScore = true">Save</button>
     </div>
     <!-- NOTE: width = wrapper width / 2 -->
-    <speed-graph :width="718" :height="359"></speed-graph>
+    <!-- This is to line up the graph's svg stroke with other components -->
+    <!-- Hack? Maybe. Aesthetic? Yes. -->
+    <speed-graph :width="718" :height="449"></speed-graph>
     <save-score v-if="saveScore" @close="saveScore = false"></save-score>
   </div>
 </template>

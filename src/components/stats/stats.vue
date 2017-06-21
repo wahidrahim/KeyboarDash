@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="stats">
     <div class="speed">
-      {{ speed ? speed : '000.00' }} WPM
+      {{ speed ? speed.toFixed(2) : '000.00' }} WPM
     </div>
     <div class="time-elapsed">
       {{ time | formatTime }}
@@ -9,5 +9,5 @@
   </div>
 </template>
 
-<script src="./stats.ts"></script>
+<script lang="ts" src="./stats.ts"></script>
 <style lang="scss" src="./stats.scss" scoped></style>

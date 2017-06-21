@@ -1,10 +1,14 @@
-export default {
+import Vue from 'vue'
+import { mapGetters } from 'vuex'
+import { Component } from 'vue-property-decorator'
+
+@Component({
   computed: {
-    speed() {
-      return this.$store.getters.speed.toFixed(2)
-    },
-    time() {
-      return this.$store.getters.timeElapsed
-    }
+    ...mapGetters({
+      speed: 'speed',
+      time: 'timeElapsed'
+    })
   }
+})
+export default class Stats extends Vue {
 }

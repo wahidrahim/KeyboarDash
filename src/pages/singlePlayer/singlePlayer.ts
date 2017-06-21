@@ -1,7 +1,7 @@
 import WordTyper from 'components/WordTyper.vue'
 import Race from 'components/Race.vue'
-import Stats from 'components/Stats'
-import SpeedGraph from 'components/SpeedGraph.vue'
+import Stats from 'components/stats'
+import SpeedGraph from 'components/speedGraph'
 import SaveScore from 'components/SaveScore.vue'
 
 export default {

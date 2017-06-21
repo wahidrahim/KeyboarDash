@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import getScoresBy from '../database/db'
+import getScoresBy from 'database/db'
 
 export default {
   name: 'Scores',
@@ -80,6 +80,8 @@ export default {
 <style lang="scss" scoped>
 .scores {
   font-family: sans-serif;
+  width: 720px;
+  margin: 0 auto;
 
   h1 {
     color: white;

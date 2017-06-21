@@ -16,4 +16,4 @@
 </template>
 
 <script lang="ts" src="./saveScore.ts"></script>
-<style lang="scss" scoped></style>
+<style lang="scss" src="./saveScore.scss" scoped></style>

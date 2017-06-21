@@ -1,7 +1,8 @@
 import { Vue, Component } from 'vue-property-decorator'
+import { mapGetters } from 'vuex'
 
 import WordTyper from 'components/wordTyper'
-import Race from 'components/Race.vue'
+import Race from 'components/race'
 import Stats from 'components/stats'
 import SpeedGraph from 'components/speedGraph'
 import SaveScore from 'components/saveScoreModal'
@@ -14,19 +15,17 @@ import SaveScore from 'components/saveScoreModal'
     Stats,
     SpeedGraph,
     SaveScore
+  },
+  computed: {
+    ...mapGetters({
+      playing: 'timeElapsed',
+      finished: 'finished'
+    })
   }
 })
 export default class SinglePlayer extends Vue {
   loading: boolean = false
   saveScore: boolean = false
-
-  get playing() {
-      return this.$store.getters.timeElapsed
-    }
-
-  get finished() {
-      return this.$store.getters.finished
-    }
 
   created() {
     this.$store.dispatch('reset')

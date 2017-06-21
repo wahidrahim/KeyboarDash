@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
+import moment from 'moment'
 import App from './App.vue'
 import store from './store/store'
 import routes from './routes'
-
-import moment from 'moment'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)

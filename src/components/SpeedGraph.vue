@@ -244,7 +244,7 @@ export default {
   }
 
   .waiting {
-    font-size: 16px;
+    font-size: 32px;
     font-family: sans-serif;
     position: absolute;
     top: 50%;

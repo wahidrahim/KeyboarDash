@@ -7,6 +7,8 @@ import routes from './routes'
 
 import moment from 'moment'
 
+const router = new VueRouter({ routes })
+
 Vue.use(VueResource)
 Vue.use(VueRouter)
 
@@ -27,8 +29,6 @@ Vue.filter('formatTime', function(ms) {
 Vue.filter('dateFormat', (date, format) => {
   return moment(date).format(format || 'MMMM Do, YYYY - HH:mm:ss')
 })
-
-const router = new VueRouter({ routes })
 
 new Vue({
   el: '#app',

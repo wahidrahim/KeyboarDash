@@ -2,12 +2,27 @@ import { Vue, Component } from 'vue-property-decorator'
 import { mapGetters } from 'vuex'
 import 'assets/icons/racing'
 
-@Component
+@Component({
+})
 export default class Race extends Vue {
+  carWidth = 100
+  roadWidth = 0
+
+  get completed() {
+    return this.$store.getters.percentageCompleted
+  }
+
   moveCar() {
-    const left = `${this.$store.getters.percentageCompleted}%`
+    console.log(this.roadWidth)
+    const distance = this.roadWidth - this.carWidth
+    const move = this.completed / 100 * distance
+    const left = `${move}px`
 
     return { left }
+  }
+
+  mounted() {
+    this.roadWidth = document.getElementById('road').offsetWidth
   }
 
   raceState() {

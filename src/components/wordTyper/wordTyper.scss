@@ -1,5 +1,5 @@
 @mixin font-style($unit) {
-  font-family: serif;
+  font-family: georgia, serif;
   word-spacing: 4px;
   font-size: $unit;
   line-height: $unit * 1.5;
@@ -61,6 +61,7 @@
       font-style: italic;
       min-height: 15px;
       color: white;
+      font-family: georgia, serif;
       text-shadow:
       -1px -1px 0 rgba(0, 0, 0, 0.1),
       1px -1px 0 rgba(0, 0, 0, 0.1),

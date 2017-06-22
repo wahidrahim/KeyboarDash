@@ -4,7 +4,7 @@
       <word-typer :class="{loading}" :loading="loading"></word-typer>
       <race></race>
       <stats v-show="finished"></stats>
-      <button class="btn-save" v-show="finished" @click="saveScore = true">
+      <button class="btn-save" v-show="finished" @click="showSaveScore = true">
         Save
       </button>
     </div>
@@ -12,7 +12,7 @@
     <!-- This is to line up the graph's svg stroke with other components -->
     <!-- Hack? Maybe. Aesthetic? Yes. -->
     <speed-graph :width="718" :height="449"></speed-graph>
-    <save-score v-if="saveScore" @close="saveScore = false"></save-score>
+    <save-score v-if="showSaveScore" @close="showSaveScore = false"></save-score>
   </div>
 </template>
 

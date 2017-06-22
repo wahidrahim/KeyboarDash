@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
+import VueSvgIcon from 'vue-svgicon'
 import moment from 'moment'
 import App from './App.vue'
 import store from './store/store'
@@ -8,6 +9,7 @@ import routes from './routes'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
+Vue.use(VueSvgIcon)
 
 Vue.filter('formatTime', function(ms) {
   const zeroTime = moment('2016-06-12 00:00:00')

@@ -1,6 +1,36 @@
 $height: 25px;
 
 .race {
+  margin-top: 15px;
+
+  .road {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    position: relative;
+    height: 100px;
+    background-color: gray;
+
+    &::after {
+      content: '';
+      height: 45px;
+      width: 100%;
+      border-bottom: 5px dashed white;
+      position: absolute;
+      z-index: 0;
+    }
+
+    .car {
+      position: absolute;
+      left: 0px;
+      z-index: 1;
+
+      svg {
+        fill: blue;
+        stroke: black;
+      }
+    }
+  }
+
   .progress-bar {
     height: $height;
     box-sizing: border-box;

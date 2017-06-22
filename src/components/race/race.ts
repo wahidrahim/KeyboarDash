@@ -1,9 +1,6 @@
 import { Vue, Component } from 'vue-property-decorator'
-import { mapGetters } from 'vuex'
-import 'assets/icons/racing'
 
-@Component({
-})
+@Component
 export default class Race extends Vue {
   carWidth = 100
   roadWidth = 0

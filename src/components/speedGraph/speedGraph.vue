@@ -88,5 +88,5 @@
   </div>
 </template>
 
-<script src="./speedGraph.ts"></script>
+<script lang="ts" src="./speedGraph.ts"></script>
 <style lang="scss" src="./speedGraph.scss" scoped></style>

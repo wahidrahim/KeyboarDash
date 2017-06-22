@@ -8,7 +8,9 @@ $height: 25px;
     border-bottom: 1px solid black;
     position: relative;
     height: 50px;
-    background-color: gray;
+    // background-color: gray;
+    background: #6C7A89;
+    margin-bottom: 15px;
 
     &::before {
       content: '';
@@ -22,9 +24,9 @@ $height: 25px;
     &::after {
       content: '';
       position: absolute;
-      width: 10px;
+      width: 8px;
       height: 50px;
-      left: calc(100% - 10px);
+      left: calc(100% - 8px);
       background-image:
       linear-gradient(45deg, #000 25%, transparent 25%),
       linear-gradient(-45deg, #000 25%, transparent 25%),

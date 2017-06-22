@@ -43,10 +43,12 @@
           box-shadow: 0px 1px 0px 0px black;
         }
         &.correct {
-          color: limegreen;
+          // color: limegreen;
+          color: #26C281;
         }
         &.incorrect {
           color: red;
+          // color: #F22613;
         }
         &:not(:last-child) {
           margin-right: 12px;

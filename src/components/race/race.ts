@@ -13,7 +13,6 @@ export default class Race extends Vue {
   }
 
   moveCar() {
-    console.log(this.roadWidth)
     const distance = this.roadWidth - this.carWidth
     const move = this.completed / 100 * distance
     const left = `${move}px`

@@ -4,7 +4,9 @@
       <word-typer :class="{loading}" :loading="loading"></word-typer>
       <race></race>
       <stats v-show="finished"></stats>
-      <button class="btn-save" v-show="finished" @click="saveScore = true">Save</button>
+      <button class="btn-save" v-show="finished" @click="saveScore = true">
+        Save
+      </button>
     </div>
     <!-- NOTE: width = wrapper width / 2 -->
     <!-- This is to line up the graph's svg stroke with other components -->

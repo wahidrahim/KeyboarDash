@@ -1,5 +1,6 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { mapGetters } from 'vuex'
+import axios from 'axios'
 
 import WordTyper from 'components/wordTyper'
 import Race from 'components/race'
@@ -25,7 +26,7 @@ import SaveScore from 'components/saveScoreModal'
 })
 export default class SinglePlayer extends Vue {
   loading: boolean = false
-  saveScore: boolean = false
+  showSaveScore: boolean = false
 
   created() {
     this.$store.dispatch('reset')
@@ -34,19 +35,17 @@ export default class SinglePlayer extends Vue {
 
     this.loading = true
 
-    this.$http.get(url).then((res) => {
-      if (!res.body) {
-        this.loading = false
-        return
-      } else {
-        const text = res.body.quoteText.trim()
-        const source = res.body.quoteAuthor
-
-        this.$store.dispatch('reset', { text, source })
-        this.loading = false
-      }
-    }, (err) => {
+    axios.get(url)
+    .then((res) => {
+      this.$store.dispatch('reset', {
+        text: res.data.quoteText.trim(),
+        source: res.data.quoteAuthor.trim()
+      })
       this.loading = false
+    })
+    .catch((err) => {
+      this.loading = false
+      console.log(err)
     })
   }
 

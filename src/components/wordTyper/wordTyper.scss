@@ -1,13 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Merriweather');
-
-@mixin font-style($unit) {
-}
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,400i');
 
 .word-typer {
   font-family: 'merriweather', georgia, serif;
 
   &.loading {
     position: relative;
+
+    .text-container .words {
+      height: 25px;
+    }
 
     .word, .source {
       display: none;
@@ -21,9 +22,10 @@
     &:before {
       content: 'loading...';
       position: absolute;
-      top: 3px;
-      left: 5px;
+      top: 12px;
+      left: 15px;
       color: black;
+      font-size: 18px;
     }
   }
 

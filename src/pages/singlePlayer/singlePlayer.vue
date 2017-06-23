@@ -7,14 +7,16 @@
         <stats v-show="finished"></stats>
       </transition>
       <transition name="fade">
-        <button class="btn-save" v-show="finished" @click="saveScore = true">Save</button>
+        <button class="btn-save" v-show="finished" @click="showSaveScore = true">Save</button>
       </transition>
     </div>
     <!-- NOTE: width = wrapper width / 2 -->
     <!-- This is to line up the graph's svg stroke with other components -->
     <!-- Hack? Maybe. Aesthetic? Yes. -->
-    <speed-graph :width="718" :height="449"></speed-graph>
-    <save-score v-if="saveScore" @close="saveScore = false"></save-score>
+    <transition name="fade">
+      <speed-graph v-show="!loading":width="718" :height="449"></speed-graph>
+    </transition>
+    <save-score v-if="showSaveScore" @close="showSaveScore = false"></save-score>
   </div>
 </template>
 

@@ -1,11 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
+
 @mixin font-style($unit) {
-  font-family: serif;
-  word-spacing: 4px;
-  font-size: $unit;
-  line-height: $unit * 1.5;
 }
 
 .word-typer {
+  font-family: 'merriweather', georgia, serif;
+
   &.loading {
     position: relative;
 
@@ -36,7 +36,8 @@
       flex-wrap: wrap;
       color: black;
       background: white;
-      @include font-style(32px);
+      font-size: 32px;
+      line-height: 32px * 1.5;
 
       .word {
         &.next {
@@ -51,7 +52,7 @@
           // color: #F22613;
         }
         &:not(:last-child) {
-          margin-right: 12px;
+          margin-right: 15px;
         }
       }
     }
@@ -70,7 +71,9 @@
   }
 
   input {
-    @include font-style(32px);
+    font-family: 'merriweather', georgia, serif;
+    font-size: 32px;
+    word-spacing: 5px;
     width: 100%;
     border: 1px solid black;
     border-radius: 3px;

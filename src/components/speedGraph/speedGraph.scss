@@ -10,7 +10,8 @@
     .value-label,
     .current-value {
       font-size: 10px;
-      font-family: monospace;
+      // font-family: monospace;
+      font-family: sans-serif;
     }
 
     .axis-label {
@@ -19,13 +20,19 @@
 
     .interval-lines {
       fill: none;
-      stroke: rgba(255, 255, 255, 0.3);
+      // stroke: rgba(255, 255, 255, 1);
+      stroke: #ecf0f1;
     }
 
     .current-value {
       font-weight: bold;
       fill: white;
       font-size: 12px;
+      text-shadow:
+      -1px -1px 0 rgba(0, 0, 0, 0.1),
+      1px -1px 0 rgba(0, 0, 0, 0.1),
+      -1px 1px 0 rgba(0, 0, 0, 0.1),
+      1px 1px 0 rgba(0, 0, 0, 0.1);
     }
 
     .current-value-line {

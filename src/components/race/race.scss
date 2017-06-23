@@ -42,6 +42,7 @@ $height: 25px;
       top: -25px;
       left: 0px;
       z-index: 1;
+      transition: all 300ms ease-in-out;
 
       svg {
         // width: 100px;

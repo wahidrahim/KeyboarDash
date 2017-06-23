@@ -3,10 +3,12 @@
     <div class="wrapper">
       <word-typer :class="{loading}" :loading="loading"></word-typer>
       <race></race>
-      <stats v-show="finished"></stats>
-      <button class="btn-save" v-show="finished" @click="saveScore = true">
-        Save
-      </button>
+      <transition name="fade">
+        <stats v-show="finished"></stats>
+      </transition>
+      <transition name="fade">
+        <button class="btn-save" v-show="finished" @click="saveScore = true">Save</button>
+      </transition>
     </div>
     <!-- NOTE: width = wrapper width / 2 -->
     <!-- This is to line up the graph's svg stroke with other components -->

@@ -2,7 +2,9 @@
   <div class="single-player">
     <div class="wrapper">
       <word-typer :class="{loading}" :loading="loading"></word-typer>
-      <race></race>
+    </div>
+    <race></race>
+    <div class="wrapper">
       <transition name="fade">
         <stats v-show="finished"></stats>
       </transition>

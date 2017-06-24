@@ -1,24 +1,30 @@
 import { Vue, Component } from 'vue-property-decorator'
+import car from './car.vue'
 
-@Component
+@Component({
+  components: {
+    car
+  }
+})
 export default class Race extends Vue {
   carWidth = 100
-  roadWidth = 0
+  trackWidth = 0
 
   get completed() {
     return this.$store.getters.percentageCompleted
   }
 
   moveCar() {
-    const distance = this.roadWidth - this.carWidth
+    const distance = this.trackWidth + this.carWidth
     const move = this.completed / 100 * distance
-    const left = `${move}px`
+    const left = `${move - this.carWidth}px`
+
 
     return { left }
   }
 
   mounted() {
-    this.roadWidth = document.getElementById('road').offsetWidth
+    this.trackWidth = this.$refs.track.offsetWidth
   }
 
   raceState() {

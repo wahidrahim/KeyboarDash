@@ -7,18 +7,19 @@ import car from './car.vue'
   }
 })
 export default class Race extends Vue {
-  carWidth = 100
-  trackWidth = 0
+  carWidth: number = 100
+  trackWidth: number = 0
+  $refs: { track: HTMLDivElement }
+
 
   get completed() {
     return this.$store.getters.percentageCompleted
   }
 
   moveCar() {
-    const distance = this.trackWidth + this.carWidth
+    const distance = this.trackWidth
     const move = this.completed / 100 * distance
     const left = `${move - this.carWidth}px`
-
 
     return { left }
   }

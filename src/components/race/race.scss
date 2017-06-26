@@ -38,9 +38,9 @@ $height: 25px;
       &::after {
         content: '';
         position: absolute;
-        // left: calc(100% - 20px);
-        left: 100%;
-        width: 20px;
+        left: calc(100% - 10px);
+        // left: 100%;
+        width: 10px;
         height: 50px;
         background-color: white;
         // checker pattern - credits to Lea Verou
@@ -63,7 +63,7 @@ $height: 25px;
         top: -25px;
         left: -100px;
         z-index: 1;
-        transition: all 400ms ease-in;
+        transition: all 400ms ease-in-out;
 
         svg {
           // width: 100px;

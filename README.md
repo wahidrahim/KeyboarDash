@@ -1,4 +1,4 @@
-# spidersunflower
+# whispering-liatris
 
 > wip - typing application
 

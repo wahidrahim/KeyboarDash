@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 
 const config = {
-  databaseURL: 'https://spidersunflower.firebaseio.com',
+  databaseURL: 'https://whispering-liatris.firebaseio.com',
 };
 
 firebase.initializeApp(config);

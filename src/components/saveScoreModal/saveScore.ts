@@ -23,7 +23,7 @@ export default class SaveScore extends Vue {
 
     // TODO: Validate data
 
-    axios.post('https://spidersunflower.firebaseio.com/scores.json', data)
+    axios.post('https://whispering-liatris.firebaseio.com/scores.json', data)
     .then((res) => {
       this.$router.push('scores')
     })

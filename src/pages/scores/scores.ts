@@ -1,5 +1,5 @@
 import { Vue, Component } from 'vue-property-decorator'
-import getScoresBy from 'database/db'
+import axios from 'axios'
 
 @Component({
   name: 'Scores'
@@ -10,11 +10,18 @@ export default class Scores extends Vue {
   scores =  []
 
   created() {
-    this.scores = getScoresBy()
+    this.sortBy()
   }
 
-  sortBy(by) {
-    this.scores = getScoresBy(by)
+  sortBy(by: string = 'date') {
+    // TODO PRODUCTION PORT
+    axios.get('//localhost:3000/api/scores?by=' + by)
+    .then((res) => {
+      this.scores = res.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
 
   home() {

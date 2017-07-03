@@ -31,21 +31,20 @@ export default class SinglePlayer extends Vue {
   created() {
     this.$store.dispatch('reset')
 
-    const url = 'https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en'
-
     this.loading = true
 
-    axios.get(url)
+    axios.get('/api/randomQuote')
     .then((res) => {
       this.$store.dispatch('reset', {
         text: res.data.quoteText.trim(),
         source: res.data.quoteAuthor.trim()
       })
-      this.loading = false
     })
     .catch((err) => {
-      this.loading = false
       console.log(err)
+    })
+    .then(() => {
+      this.loading = false
     })
   }
 

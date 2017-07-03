@@ -23,13 +23,25 @@ export default class SaveScore extends Vue {
 
     // TODO: Validate data
 
-    axios.post('https://whispering-liatris.firebaseio.com/scores.json', data)
+    // console.log(data)
+
+    // TODO PRODUCTION PORT
+    // axios.post('//localhost:3000/api/score', data)
+    axios.post('/api/score', data)
     .then((res) => {
       this.$router.push('scores')
     })
     .catch((err) => {
       console.log(err)
     })
+
+    // axios.post('https://whispering-liatris.firebaseio.com/scores.json', data)
+    // .then((res) => {
+    //   this.$router.push('scores')
+    // })
+    // .catch((err) => {
+    //   console.log(err)
+    // })
   }
 
   close() {

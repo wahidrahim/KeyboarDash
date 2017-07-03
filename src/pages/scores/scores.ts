@@ -15,7 +15,8 @@ export default class Scores extends Vue {
 
   sortBy(by: string = 'date') {
     // TODO PRODUCTION PORT
-    axios.get('//localhost:3000/api/scores?by=' + by)
+    // axios.get('//localhost:3000/api/scores?by=' + by)
+    axios.get('/api/scores?by=' + by)
     .then((res) => {
       this.scores = res.data
     })

@@ -12,7 +12,14 @@ export default class SaveScore extends Vue {
   $refs: { nameInput: HTMLInputElement }
 
   save() {
-    const data = {
+    const data: {
+      name: string
+      speed: number
+      time: number
+      text: string
+      source: string
+      date: number
+    } = {
       name: this.name.length ? this.name : 'Anonymous',
       speed: this.speed,
       time: this.time,

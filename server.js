@@ -3,8 +3,10 @@ const bodyParser = require('body-parser')
 const firebase = require('firebase')
 const axios = require('axios')
 const express = require('express')
+const socket = require('socket.io')
 
 const app = express()
+const io = socket()
 const port = process.env.PORT || 3000
 
 app.use(cors())
@@ -55,6 +57,18 @@ app.get('/api/randomQuote', (req, res) => {
     })
 })
 
-app.listen(port, () => {
+io.listen(app.listen(port, () => {
   console.log('listening on', port)
+}))
+
+let playersCount = 0
+
+io.on('connect', (socket) => {
+  playersCount++
+  io.emit('updatePlayersCount', playersCount)
+
+  socket.on('disconnect', (socket) => {
+    playersCount--
+    io.emit('updatePlayersCount', playersCount)
+  })
 })

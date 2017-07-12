@@ -1,0 +1,27 @@
+.multiplayer {
+  .wrapper {
+    width: 720px;
+    margin: 0 auto;
+  }
+
+  .btn-save {
+    border: 1px solid black;
+    font-size: 16px;
+    border-radius: 3px;
+    display: block;
+    margin: 15px auto;
+    padding: 10px 35px;
+    // background: white;
+    background: #ECF0F1;
+    box-shadow: 0px 2px 1px 0px rgba(0,0,0,0.35);
+
+    &:hover {
+      background: white;
+      cursor: pointer;
+    }
+
+    &:active {
+      box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.35);
+    }
+  }
+}

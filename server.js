@@ -19,14 +19,19 @@ io.listen(app.listen(port, () => {
   console.log('listening on', port)
 }))
 
-let playersCount = 0
+let players = []
 
 io.on('connect', (socket) => {
-  playersCount++
-  io.emit('updatePlayersCount', playersCount)
-
   socket.on('disconnect', (socket) => {
-    playersCount--
-    io.emit('updatePlayersCount', playersCount)
+  })
+
+  socket.on('updatePlayer', (data) => {
+    // Object.entries(data).map(([key, value]) => {
+    //
+    // })
+
+    players.push(data)
+
+    io.emit('updatePlayers', players)
   })
 })

@@ -15,7 +15,6 @@
 
     input {
       margin-top: 15px;
-
     }
 
     &:before {
@@ -82,6 +81,7 @@
     padding: 10px 20px;
     outline: none;
     color: black;
+    margin-bottom: 15px;
 
     &:disabled {
       background: lightgray;

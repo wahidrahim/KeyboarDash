@@ -88,4 +88,13 @@ $height: 25px;
       border-bottom-right-radius: $height / 2;
     }
   }
+
+  &.multiplayer {
+    margin: 0;
+
+    .road {
+      margin: 0;
+      border: none;
+    }
+  }
 }

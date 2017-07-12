@@ -5,19 +5,13 @@
     </div>
     <race></race>
     <div class="wrapper">
-      <transition name="fade">
-        <stats v-show="finished"></stats>
-      </transition>
-      <transition name="fade">
-        <button class="btn-save" v-show="finished" @click="showSaveScore = true">Save</button>
-      </transition>
+      <stats v-show="finished"></stats>
+      <button class="btn-save" v-show="finished" @click="showSaveScore = true">Save</button>
     </div>
     <!-- NOTE: width = wrapper width / 2 -->
     <!-- This is to line up the graph's svg stroke with other components -->
     <!-- Hack? Maybe. Aesthetic? Yes. -->
-    <transition name="fade">
-      <speed-graph v-show="!loading":width="718" :height="449"></speed-graph>
-    </transition>
+    <speed-graph v-show="!loading":width="718" :height="449"></speed-graph>
     <save-score v-if="showSaveScore" @close="showSaveScore = false"></save-score>
   </div>
 </template>

@@ -20,18 +20,36 @@ io.listen(app.listen(port, () => {
 }))
 
 let players = []
+let messages = []
 
 io.on('connect', (socket) => {
+  socket.emit('id', socket.id)
+
   socket.on('disconnect', (socket) => {
-  })
-
-  socket.on('updatePlayer', (data) => {
-    // Object.entries(data).map(([key, value]) => {
-    //
-    // })
-
-    players.push(data)
+    players = players.filter((player) => {
+      player.id != socket.id
+    })
 
     io.emit('updatePlayers', players)
+  })
+
+  socket.on('newPlayer', (data) => {
+    // const player = {
+    //   ...data,
+    //   id: socket.id
+    // }
+
+    const player = data
+    player.id = socket.id
+
+    players.push(player)
+
+    io.emit('updatePlayers', players)
+  })
+
+  socket.on('sendMessage', (message) => {
+    messages.push(message)
+    // io.emit('newMessage', message)
+    io.emit('updateMessages', messages)
   })
 })

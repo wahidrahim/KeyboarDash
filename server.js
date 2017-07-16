@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const socket = require('socket.io')
 
-const api = require('./api')
+// const api = require('./api')
 
 const app = express()
 const io = socket()
@@ -13,7 +13,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(express.static(__dirname))
 
-app.use('/api/', api)
+// app.use('/api/', api)
 
 io.listen(app.listen(port, () => {
   console.log('listening on', port)
@@ -23,33 +23,31 @@ let players = []
 let messages = []
 
 io.on('connect', (socket) => {
-  socket.emit('id', socket.id)
+  const player = {
+    id: socket.id,
+    name: socket.id,
+    color: 'red'
+  }
 
-  socket.on('disconnect', (socket) => {
-    players = players.filter((player) => {
-      player.id != socket.id
+  players.push(player)
+  io.emit('updatePlayers', players)
+  socket.broadcast.send({
+    text: `${player.name} has joined`
+  })
+  socket.emit('updatePlayer', player)
+
+  socket.on('message', (msg) => {
+    io.send(msg)
+    messages.push(msg)
+  })
+
+  socket.on('disconnect', () => {
+    players = players.filter((p) => {
+      return p.id != socket.id
     })
 
-    io.emit('updatePlayers', players)
-  })
-
-  socket.on('newPlayer', (data) => {
-    // const player = {
-    //   ...data,
-    //   id: socket.id
-    // }
-
-    const player = data
-    player.id = socket.id
-
-    players.push(player)
+    console.log(players)
 
     io.emit('updatePlayers', players)
-  })
-
-  socket.on('sendMessage', (message) => {
-    messages.push(message)
-    // io.emit('newMessage', message)
-    io.emit('updateMessages', messages)
   })
 })

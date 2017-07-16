@@ -1,109 +1,33 @@
-.multiplayer {
-  .wrapper {
-    width: 720px;
-    margin: 0 auto;
-  }
-
-  .btn-save {
-    border: 1px solid black;
-    font-size: 16px;
-    border-radius: 3px;
-    display: block;
-    margin: 15px auto;
-    padding: 10px 35px;
-    // background: white;
-    background: #ECF0F1;
-    box-shadow: 0px 2px 1px 0px rgba(0,0,0,0.35);
-
-    &:hover {
-      background: white;
-      cursor: pointer;
-    }
-
-    &:active {
-      box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.35);
-    }
-  }
-}
-
-.get-name-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.1);
-  font-family: sans-serif;
-
-  .save {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border-radius: 3px;
-    border: 1px solid black;
-
-    .header {
-      padding: 10px;
-      background: black;
-      color: white;
-      border-top-left-radius: 3px;
-      border-top-right-radius: 3px;
-
-      .close {
-        float: right;
-        color: lightgray;
-
-        &:hover {
-          color: white;
-          cursor: pointer;
-        }
-      }
-    }
-
-    form {
-      padding: 10px;
-
-      input {
-        border: 1px solid darkgray;
-        border-radius: 3px;
-        padding: 10px;
-        font-size: 16px;
-      }
-
-      button {
-        padding: 10px 20px;
-        font-size: 16px;
-        border-radius: 3px;
-        border: 1px solid darkgray;
-        background: white;
-
-        &:hover {
-          background: whitesmoke;
-          cursor: pointer;
-        }
-      }
-    }
-  }
-}
-
-
 .chat {
   background: white;
   position: absolute;
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  padding: 10px;
+  font-family: sans-serif;
 
-  ul {
+  .header {
+    background: black;
+    color: white;
+    padding: 10px;
+  }
+
+  .wrap {
+    padding: 10px;
+  }
+
+  .messages {
     border: 1px solid black;
     list-style-type: none;
     height: 250px;
     width: 500px;
     margin: 0;
     padding: 0;
+    overflow-y: auto;
+
+    .name {
+      font-weight: bold;
+    }
   }
 
   input {
@@ -113,3 +37,95 @@
     margin-top: 10px;
   }
 }
+
+// .multiplayer {
+//   .wrapper {
+//     width: 720px;
+//     margin: 0 auto;
+//   }
+//
+//   .btn-save {
+//     border: 1px solid black;
+//     font-size: 16px;
+//     border-radius: 3px;
+//     display: block;
+//     margin: 15px auto;
+//     padding: 10px 35px;
+//     // background: white;
+//     background: #ECF0F1;
+//     box-shadow: 0px 2px 1px 0px rgba(0,0,0,0.35);
+//
+//     &:hover {
+//       background: white;
+//       cursor: pointer;
+//     }
+//
+//     &:active {
+//       box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.35);
+//     }
+//   }
+// }
+//
+// .get-name-modal {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   background: rgba(0, 0, 0, 0.1);
+//   font-family: sans-serif;
+//
+//   .save {
+//     position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     background: white;
+//     border-radius: 3px;
+//     border: 1px solid black;
+//
+//     .header {
+//       padding: 10px;
+//       background: black;
+//       color: white;
+//       border-top-left-radius: 3px;
+//       border-top-right-radius: 3px;
+//
+//       .close {
+//         float: right;
+//         color: lightgray;
+//
+//         &:hover {
+//           color: white;
+//           cursor: pointer;
+//         }
+//       }
+//     }
+//
+//     form {
+//       padding: 10px;
+//
+//       input {
+//         border: 1px solid darkgray;
+//         border-radius: 3px;
+//         padding: 10px;
+//         font-size: 16px;
+//       }
+//
+//       button {
+//         padding: 10px 20px;
+//         font-size: 16px;
+//         border-radius: 3px;
+//         border: 1px solid darkgray;
+//         background: white;
+//
+//         &:hover {
+//           background: whitesmoke;
+//           cursor: pointer;
+//         }
+//       }
+//     }
+//   }
+// }
+//
+//

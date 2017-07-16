@@ -41,12 +41,28 @@ io.on('connect', (socket) => {
     messages.push(msg)
   })
 
-  socket.on('disconnect', () => {
-    players = players.filter((p) => {
-      return p.id != socket.id
+  socket.on('updatePlayer', (player) => {
+    const i = players.findIndex((p) => {
+      return p.id === player.id
     })
 
-    console.log(players)
+    io.send({
+      text: `${players[i].name} changed name to ${player.name}`
+    })
+
+    players[i] = player
+  })
+
+  socket.on('disconnect', () => {
+    const i = players.findIndex((p) => {
+      return p.id === socket.id
+    })
+
+    io.send({
+      text: `${players[i].name} has left`
+    })
+
+    players.splice(i, 1)
 
     io.emit('updatePlayers', players)
   })

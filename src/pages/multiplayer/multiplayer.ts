@@ -25,8 +25,12 @@ export default class MultiPlayer extends Vue {
     name: undefined,
     color: undefined
   }
+  showNameInputModal = true
 
-  $refs: { messageInput: HTMLInputElement }
+  $refs: {
+    nameInput: HTMLInputElement,
+    messageInput: HTMLInputElement
+  }
 
   created() {
     socket.on('updatePlayer', (player) => {
@@ -52,6 +56,17 @@ export default class MultiPlayer extends Vue {
       })
       this.$refs.messageInput.value = ''
     }
+  }
+
+  updateName() {
+    const name = this.$refs.nameInput.value
+
+    if (name.length) {
+      this.player.name = name
+      socket.emit('updatePlayer', this.player)
+    }
+
+    this.showNameInputModal = false
   }
 }
 // import { Vue, Component } from 'vue-property-decorator'

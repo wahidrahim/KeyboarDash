@@ -1,5 +1,15 @@
 <template lang="html">
   <div class="multiplayer">
+    <div class="get-name-modal" v-show="showNameInputModal">
+      <div class="header">
+        Name
+        <span class="close" @click="updateName">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </span>
+      </div>
+      <input type="text" @keyup.enter="updateName" ref="nameInput" :value="player.name">
+    </div>
+
     <div class="chat">
       <div class="header">
         Connected as: [{{ player.name }}]
@@ -12,8 +22,10 @@
             class="name"
             v-if="message.player"
             :style="{ color: message.player.color }">
-            {{ message.player.name }}: </span>
-            {{ message.text }}
+            {{ message.player.name }}:&nbsp;</span>
+            <span :class="{server: !message.player}">
+              {{ message.text }}
+            </span>
           </li>
         </ul>
         <input type="text" @keyup.enter="sendMessage" ref="messageInput">

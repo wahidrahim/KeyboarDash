@@ -1,7 +1,7 @@
 <template>
   <div class="single-player">
     <div class="wrapper">
-      <word-typer :class="{loading}" :loading="loading"></word-typer>
+      <word-typer :class="{loading}" :loading="loading" @playing="toggleTimer"></word-typer>
     </div>
     <race></race>
     <div class="wrapper">

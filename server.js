@@ -2,6 +2,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
 const socket = require('socket.io')
+const moment = require('moment')
 
 // const api = require('./api')
 
@@ -51,6 +52,10 @@ io.on('connect', (socket) => {
     })
 
     players[i] = player
+  })
+
+  socket.on('toggleTimer', () => {
+    io.emit('toggleTimer')
   })
 
   socket.on('disconnect', () => {

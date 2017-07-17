@@ -29,7 +29,8 @@ export default class WordTyper extends Vue {
 
     if (!this.playing) {
       this.playing = true
-      this.$store.dispatch('startTimer')
+      this.$emit('playing', this.playing)
+      // this.$store.dispatch('startTimer')
     }
 
     // user has not finished typing all the words
@@ -46,7 +47,8 @@ export default class WordTyper extends Vue {
       }
     } else {
       this.playing = false
-      this.$store.dispatch('stopTimer')
+      this.$emit('playing', this.playing)
+      // this.$store.dispatch('stopTimer')
     }
   }
 

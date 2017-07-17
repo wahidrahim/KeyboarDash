@@ -48,6 +48,14 @@ export default class SinglePlayer extends Vue {
     })
   }
 
+  toggleTimer(playing) {
+    if (playing) {
+      this.$store.dispatch('startTimer')
+    } else {
+      this.$store.dispatch('stopTimer')
+    }
+  }
+
   save() {
     this.$router.push('scores')
   }

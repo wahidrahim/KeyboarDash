@@ -1,5 +1,6 @@
-import { Vue, Component } from 'vue-property-decorator'
+import { Vue, Component, Watch } from 'vue-property-decorator'
 import io from 'socket.io-client'
+import WordTyper from 'components/wordTyper'
 
 interface Message {
   player: string
@@ -10,12 +11,16 @@ interface Player {
   id: string
   name: string
   color: string
+  isLeader: boolean
 }
 
 const socket = io()
 
 @Component({
-  name: 'MultiPlayer'
+  name: 'MultiPlayer',
+  components: {
+    WordTyper
+  }
 })
 export default class MultiPlayer extends Vue {
   messages: Message[] = []
@@ -23,13 +28,29 @@ export default class MultiPlayer extends Vue {
   player: Player = {
     id: undefined,
     name: undefined,
-    color: undefined
+    color: undefined,
+    isLeader: false
   }
   showNameInputModal = true
 
   $refs: {
     nameInput: HTMLInputElement,
     messageInput: HTMLInputElement
+  }
+
+  get time() {
+    return this.$store.getters.timeElapsed
+  }
+
+  get speed() {
+    return this.$store.getters.speed
+  }
+
+  @Watch('players', { deep: true })
+  onPlayersUpdate() {
+    if (this.players[0].id === this.player.id) {
+      this.player.isLeader = true
+    }
   }
 
   created() {
@@ -43,6 +64,14 @@ export default class MultiPlayer extends Vue {
 
     socket.on('message', (message) => {
       this.messages.push(message)
+    })
+
+    socket.on('toggleTimer', (time) => {
+      if (!this.time) {
+        this.$store.dispatch('startTimer')
+      } else {
+        this.$store.dispatch('stopTimer')
+      }
     })
   }
 
@@ -67,6 +96,10 @@ export default class MultiPlayer extends Vue {
     }
 
     this.showNameInputModal = false
+  }
+
+  toggleTimer() {
+    socket.emit('toggleTimer')
   }
 }
 // import { Vue, Component } from 'vue-property-decorator'

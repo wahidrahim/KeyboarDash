@@ -3,12 +3,20 @@
     <div class="get-name-modal" v-show="showNameInputModal">
       <div class="header">
         Name
-        <span class="close" @click="updateName">
+        <span class="close" @click="showNameInputModal = false">
           <i class="fa fa-times" aria-hidden="true"></i>
         </span>
       </div>
       <input type="text" @keyup.enter="updateName" ref="nameInput" :value="player.name">
     </div>
+
+    <div class="wrapper" v-show="!showNameInputModal">
+      <word-typer></word-typer>
+    </div>
+
+    <button type="button" name="button" @click="toggleTimer" v-if="player.isLeader">start</button>
+    {{ time | formatTime }}
+    {{ speed }}
 
     <div class="chat">
       <div class="header">

@@ -4,7 +4,7 @@ const express = require('express')
 const socket = require('socket.io')
 const moment = require('moment')
 
-// const api = require('./api')
+const api = require('./api')
 
 const app = express()
 const io = socket()
@@ -14,7 +14,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(express.static(__dirname))
 
-// app.use('/api/', api)
+app.use('/api/', api)
 
 io.listen(app.listen(port, () => {
   console.log('listening on', port)
@@ -22,6 +22,7 @@ io.listen(app.listen(port, () => {
 
 let players = []
 let messages = []
+let words = ''
 
 io.on('connect', (socket) => {
   const player = {
@@ -36,6 +37,10 @@ io.on('connect', (socket) => {
     text: `${player.name} has joined`
   })
   socket.emit('updatePlayer', player)
+
+  if (words.length) {
+    socket.emit('words', words)
+  }
 
   socket.on('message', (msg) => {
     io.send(msg)
@@ -52,6 +57,11 @@ io.on('connect', (socket) => {
     })
 
     players[i] = player
+  })
+
+  socket.on('words', (words) => {
+    words = words
+    socket.broadcast.emit('words', words)
   })
 
   socket.on('toggleTimer', () => {

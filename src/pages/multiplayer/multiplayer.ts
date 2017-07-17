@@ -1,5 +1,6 @@
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import io from 'socket.io-client'
+import axios from 'axios'
 import WordTyper from 'components/wordTyper'
 
 interface Message {
@@ -32,6 +33,7 @@ export default class MultiPlayer extends Vue {
     isLeader: false
   }
   showNameInputModal = true
+  loading =false
 
   $refs: {
     nameInput: HTMLInputElement,
@@ -50,6 +52,25 @@ export default class MultiPlayer extends Vue {
   onPlayersUpdate() {
     if (this.players[0].id === this.player.id) {
       this.player.isLeader = true
+
+      axios.get('/api/randomQuote')
+      .then((res) => {
+        this.$store.dispatch('reset', {
+          text: res.data.quoteText.trim(),
+          source: res.data.quoteAuthor.trim()
+        })
+
+        socket.emit('words', {
+          text: res.data.quoteText.trim(),
+          source: res.data.quoteAuthor.trim()
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .then(() => {
+        this.loading = false
+      })
     }
   }
 
@@ -60,6 +81,10 @@ export default class MultiPlayer extends Vue {
 
     socket.on('updatePlayers', (players) => {
       this.players = players
+    })
+
+    socket.on('words', (words) => {
+      this.$store.dispatch('reset', words)
     })
 
     socket.on('message', (message) => {

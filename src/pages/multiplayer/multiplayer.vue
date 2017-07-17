@@ -10,7 +10,7 @@
       <input type="text" @keyup.enter="updateName" ref="nameInput" :value="player.name">
     </div>
 
-    <div class="wrapper" v-show="!showNameInputModal">
+    <div class="wrapper">
       <word-typer></word-typer>
     </div>
 

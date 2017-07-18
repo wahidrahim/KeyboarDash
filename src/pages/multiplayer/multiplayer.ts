@@ -2,6 +2,7 @@ import { Vue, Component, Watch } from 'vue-property-decorator'
 import io from 'socket.io-client'
 import axios from 'axios'
 import WordTyper from 'components/wordTyper'
+import Race from 'components/race'
 
 interface Message {
   player: string
@@ -13,6 +14,7 @@ interface Player {
   name: string
   color: string
   isLeader: boolean
+  completed: number
 }
 
 const socket = io()
@@ -20,7 +22,8 @@ const socket = io()
 @Component({
   name: 'MultiPlayer',
   components: {
-    WordTyper
+    WordTyper,
+    Race
   }
 })
 export default class MultiPlayer extends Vue {
@@ -30,10 +33,12 @@ export default class MultiPlayer extends Vue {
     id: undefined,
     name: undefined,
     color: undefined,
-    isLeader: false
+    isLeader: false,
+    completed: 0
   }
   showNameInputModal = true
-  loading =false
+  loading = false
+  countDown = 5
 
   $refs: {
     nameInput: HTMLInputElement,
@@ -48,31 +53,31 @@ export default class MultiPlayer extends Vue {
     return this.$store.getters.speed
   }
 
-  @Watch('players', { deep: true })
-  onPlayersUpdate() {
-    if (this.players[0].id === this.player.id) {
-      this.player.isLeader = true
-
-      axios.get('/api/randomQuote')
-      .then((res) => {
-        this.$store.dispatch('reset', {
-          text: res.data.quoteText.trim(),
-          source: res.data.quoteAuthor.trim()
-        })
-
-        socket.emit('words', {
-          text: res.data.quoteText.trim(),
-          source: res.data.quoteAuthor.trim()
-        })
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      .then(() => {
-        this.loading = false
-      })
-    }
-  }
+  // @Watch('players', { deep: true })
+  // onPlayersUpdate() {
+  //   if (this.players[0].id === this.player.id) {
+  //     this.player.isLeader = true
+  //
+  //     axios.get('/api/randomQuote')
+  //     .then((res) => {
+  //       this.$store.dispatch('reset', {
+  //         text: res.data.quoteText.trim(),
+  //         source: res.data.quoteAuthor.trim()
+  //       })
+  //
+  //       socket.emit('words', {
+  //         text: res.data.quoteText.trim(),
+  //         source: res.data.quoteAuthor.trim()
+  //       })
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //     })
+  //     .then(() => {
+  //       this.loading = false
+  //     })
+  //   }
+  // }
 
   created() {
     socket.on('updatePlayer', (player) => {
@@ -81,6 +86,9 @@ export default class MultiPlayer extends Vue {
 
     socket.on('updatePlayers', (players) => {
       this.players = players
+      this.players.map((p) => {
+        console.log(p.completed)
+      })
     })
 
     socket.on('words', (words) => {
@@ -92,11 +100,18 @@ export default class MultiPlayer extends Vue {
     })
 
     socket.on('toggleTimer', (time) => {
-      if (!this.time) {
-        this.$store.dispatch('startTimer')
-      } else {
+      if (this.time > 0) {
         this.$store.dispatch('stopTimer')
       }
+
+      let i = setInterval(() => {
+        this.countDown--
+
+        if (this.countDown === 0) {
+          this.$store.dispatch('startTimer')
+          clearInterval(i)
+        }
+      }, 1000)
     })
   }
 
@@ -126,45 +141,13 @@ export default class MultiPlayer extends Vue {
   toggleTimer() {
     socket.emit('toggleTimer')
   }
+
+  completedWord(completedText) {
+    console.log(this.$store.getters.percentageCompleted)
+    this.$store.dispatch('updateCompletedText', completedText)
+    socket.emit('completedText', {
+      id: this.player.id,
+      completed: this.$store.getters.percentageCompleted
+    })
+  }
 }
-// import { Vue, Component } from 'vue-property-decorator'
-// import { mapGetters } from 'vuex'
-// import axios from 'axios'
-//
-// import WordTyper from 'components/wordTyper'
-// import Race from 'components/race'
-// import Name from 'components/getNameModal'
-// import SaveScore from 'components/saveScoreModal'
-//
-// import io from 'socket.io-client'
-//
-// // needs to be a class
-// interface Player {
-//   name: string
-// }
-//
-// @Component({
-//   name: 'MultiPlayer',
-//   components: {
-//     WordTyper,
-//     Race,
-//     SaveScore,
-//     Name
-//   },
-//   computed: {
-//     ...mapGetters({
-//       playing: 'timeElapsed',
-//       finished: 'finished'
-//     })
-//   }
-// })
-// export default class MultiPlayer extends Vue {
-//   socket = io()d
-//   loading: boolean = false
-//   showNameInputModal: boolean = true
-//
-//   created() {
-//
-//   }
-//
-// }

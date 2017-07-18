@@ -28,7 +28,8 @@ io.on('connect', (socket) => {
   const player = {
     id: socket.id,
     name: socket.id,
-    color: 'red'
+    color: 'red',
+    completed: 0
   }
 
   players.push(player)
@@ -66,6 +67,14 @@ io.on('connect', (socket) => {
 
   socket.on('toggleTimer', () => {
     io.emit('toggleTimer')
+  })
+
+  socket.on('completedText', (player) => {
+    const i = players.findIndex((p) => {
+      return p.id === player.id
+    })
+    players[i].completed = player.completed
+    io.emit('updatePlayers', players)
   })
 
   socket.on('disconnect', () => {

@@ -43,7 +43,8 @@ export default class WordTyper extends Vue {
         this.userText += value
         this.input = ''
         this.next++
-        this.$store.dispatch('updateCompletedText', this.userText)
+        // this.$store.dispatch('updateCompletedText', this.userText)
+        this.$emit('completedWord', this.userText)
       }
     } else {
       this.playing = false

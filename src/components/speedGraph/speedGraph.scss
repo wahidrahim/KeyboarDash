@@ -3,6 +3,8 @@
   position: relative;
 
   .graph {
+    overflow: visible;
+
     // NOTE: padding left/right = 50% - width / 2
     padding: 15px calc(50% - 718px / 2) 55px;
 
